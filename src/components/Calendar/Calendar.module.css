@@ -1,0 +1,25 @@
+.calendar-container {
+  height: 18rem;
+  width: 15rem;
+  background-color: var(--white);
+  border: 0.7px solid var(--ash-grey);
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  padding: 6px;
+}
+
+.calendar-buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 2rem;
+}
+
+.calendar-buttons > span {
+  height: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.calendar-buttons > span > svg:hover {
+  cursor: pointer;
+}
