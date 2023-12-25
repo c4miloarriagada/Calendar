@@ -8,14 +8,12 @@ const initialState: Calendar = {
   month: new Date().getMonth(),
   year: new Date().getFullYear(),
   darkMode: false
-
-
 }
 
 const CalendarContext = createContext<[Calendar, Actions]>([initialState, {}])
 
 export const CalendarProvider = (props: ParentProps<Calendar>) => {
-  const [state, ] = createStore<Calendar>({
+  const [state] = createStore<Calendar>({
     today: initialState.today,
     month: initialState.month,
     year: initialState.year,
@@ -25,14 +23,17 @@ export const CalendarProvider = (props: ParentProps<Calendar>) => {
   const context: [Calendar, Actions] = [
     state,
     {
-      getDaysOfMonth(){
-
+      getDaysOfMonth(month: number, year: number): Date[] {
+        const date = new Date(year, month, 1)
+        const daysInMonth = []
+        while (date.getMonth() === month) {
+          daysInMonth.push(new Date(date))
+          date.setDate(date.getDate() + 1)
+        }
+        return daysInMonth
       }
     }
-    
   ]
-
-
 
   return (
     <CalendarContext.Provider value={context}>

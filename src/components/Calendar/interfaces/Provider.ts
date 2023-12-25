@@ -6,5 +6,5 @@ export interface Calendar {
 }
 
 export interface Actions {
-  getDaysOfMonth?: () => void
+  getDaysOfMonth?: (month: number, year: number) => Date[]
 }

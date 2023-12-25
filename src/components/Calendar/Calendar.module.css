@@ -1,10 +1,25 @@
+:root {
+  --text-muted: #6c757d;
+}
+
 .calendar-container {
   height: 18rem;
   width: 15rem;
   background-color: var(--white);
   border: 0.7px solid var(--ash-grey);
-  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
   padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: (repeat(6, 1fr));
+  background-color: aqua;
 }
 
 .calendar-buttons {
@@ -18,8 +33,22 @@
   height: 2rem;
   display: flex;
   align-items: center;
+  font-weight: 600;
 }
 
 .calendar-buttons > span > svg:hover {
   cursor: pointer;
+}
+
+.calendar-table {
+  height: 100%;
+  width: 100%;
+}
+
+.calendar-t-head {
+  color: var(--text-muted);
+}
+
+.calendar-days {
+  font-size: 1rem;
 }
