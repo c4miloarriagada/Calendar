@@ -3,8 +3,9 @@ export interface Calendar {
   month?: number
   year?: number
   darkMode?: boolean
+  daysOfMonth: Date[]
 }
 
 export interface Actions {
-  getDaysOfMonth?: (month: number, year: number) => Date[]
+  getDaysOfMonth?: () => void
 }

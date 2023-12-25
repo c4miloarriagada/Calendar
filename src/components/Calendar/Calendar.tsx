@@ -1,16 +1,21 @@
 import {  useCalendarContext } from './Provider'
+import  { createEffect } from 'solid-js'
 import { CalendarButtons } from './CalendarButtons'
 import style from './Calendar.module.css'
 
 
 export const Calendar = () => {
 
-  const [state,  ] = useCalendarContext()
+  const [state, { getDaysOfMonth } ] = useCalendarContext()
 
   const  month = state.today?.toLocaleString('default',{ month: 'long'}).split(" ")[0]
   const year = state.today?.getFullYear()
+  
 
-
+  createEffect(()=>{
+    getDaysOfMonth && getDaysOfMonth()
+  })
+ 
 
   return (
    
@@ -18,7 +23,7 @@ export const Calendar = () => {
         <div class={style['calendar-buttons']}>
           <span><CalendarButtons iconDirection='left' /> </span>
           <span> {month} { year}</span>
-          <span><CalendarButtons iconDirection='right'  /> </span>
+          <span><CalendarButtons  iconDirection='right'  /> </span>
           
         </div>
         <div>
@@ -34,7 +39,9 @@ export const Calendar = () => {
                 <th class={style['calendar-days']}>Sa</th>
               </tr>
             </thead>
-
+            <tbody>
+          <tr></tr>
+          </tbody>
           </table>
          
         </div>
