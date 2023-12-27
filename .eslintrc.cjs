@@ -3,7 +3,14 @@ module.exports = {
     browser: true,
     es2021: true
   },
-  extends: ['eslint:recommended', 'plugin:solid/typescript'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    'plugin:@typescript-eslint/strict',
+    'plugin:solid/typescript',
+    'plugin:prettier/recommended'
+  ],
   overrides: [
     {
       env: {
@@ -17,9 +24,16 @@ module.exports = {
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 'latest',
+    ecmaFeatures: {
+      jsx: true
+    },
+    ecmaVersion: 12,
     sourceType: 'module'
   },
   plugins: ['solid'],
-  rules: {}
-}
+  lint: 'eslint .',
+  rules: {
+    'react/react-in-jsx-scope': 'off'
+  },
+  format: "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+};

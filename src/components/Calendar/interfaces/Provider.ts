@@ -1,11 +1,10 @@
 export interface Calendar {
-  today?: Date
-  month?: number
-  year?: number
-  darkMode?: boolean
-  daysOfMonth: Date[]
+  today?: Date;
+  darkMode?: boolean;
+  daysOfMonth?: { daysOfMonth: Date[] };
+  daysOfWeek?: string[];
 }
 
 export interface Actions {
-  getDaysOfMonth?: () => void
+  getDaysOfMonth?: (month?: number, year?: number) => void;
 }
