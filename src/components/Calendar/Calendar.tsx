@@ -1,6 +1,7 @@
 import { useCalendarContext } from './Provider';
-import { For, createEffect, createSignal } from 'solid-js';
+import { For, createEffect } from 'solid-js';
 import { CalendarButtons } from './CalendarButtons';
+import { dayParser } from '../../helpers/dayParser';
 import style from './Calendar.module.css';
 
 export const Calendar = () => {
@@ -10,7 +11,6 @@ export const Calendar = () => {
   createEffect(() => {
     getDaysOfMonth && getDaysOfMonth();
   });
-
 
   return (
     <div class={style['calendar-container']}>
@@ -27,28 +27,27 @@ export const Calendar = () => {
         </span>
       </div>
       <div>
-          <table class={style['calendar-table']} role="grid">
-          <thead class={style['calendar-t-head']}>
-            <tr>
-              <th class={style['calendar-days']}>Su</th>
-              <th class={style['calendar-days']}>Mo</th>
-              <th class={style['calendar-days']}>Tu</th>
-              <th class={style['calendar-days']}>We</th>
-              <th class={style['calendar-days']}>Th</th>
-              <th class={style['calendar-days']}>Fr</th>
-              <th class={style['calendar-days']}>Sa</th>
-            </tr>
-          </thead>
-          <tbody>
-            <For each={state.daysOfMonth.daysOfMonth}>
-              {(days) => (
-                <tr>
-                  <td>1</td>
-                </tr>
-              )}
-            </For>
-          </tbody>
-        </table>
+  <table class={style['calendar-table']} role="grid">
+  <thead class={style['calendar-t-head']}>
+   
+      <For each={Object.values(state?.daysOfWeek!)}>
+        {(header) => (
+          <th class={style['calendar-days']}>{header.substring(0, 2)}</th>
+        )}
+      </For>
+   
+  </thead>
+  <tbody>
+    <For each={dayParser({ daysOfMonth: state?.daysOfMonth?.daysOfMonth!, daysOfWeek: state?.daysOfWeek! })}>
+      {(days, index) => (
+        <tr>
+          <td>{index() >= 5 ? days.day : ''}</td>
+        </tr>
+      )}
+    </For>
+  </tbody>
+</table>
+
       </div>
     </div>
   );
