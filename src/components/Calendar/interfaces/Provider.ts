@@ -1,9 +1,17 @@
 export interface Calendar {
   today?: Date;
   darkMode?: boolean;
-  daysOfMonth?: { daysOfMonth: Date[] };
+  actualMonth?: { actualMonth: Date[] };
   daysOfWeek?: DaysOfWeek;
+  prevMonth?: { prevMonth: Date[] };
+  nextMonth?: { nextMonth: Date[] };
 }
+
+export type Months = {
+  prev: number;
+  actual: number;
+  next: number;
+};
 
 export type DaysOfWeek = {
   0: "Sunday";

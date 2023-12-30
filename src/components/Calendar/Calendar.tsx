@@ -1,7 +1,6 @@
 import { useCalendarContext } from './Provider';
 import { For, createEffect } from 'solid-js';
 import { CalendarButtons } from './CalendarButtons';
-import { dayParser } from '../../helpers/dayParser';
 import style from './Calendar.module.css';
 
 export const Calendar = () => {
@@ -12,6 +11,12 @@ export const Calendar = () => {
     getDaysOfMonth && getDaysOfMonth();
   });
 
+
+  console.log(state.nextMonth?.nextMonth)
+  console.log(state.actualMonth?.actualMonth)
+  console.log(state.prevMonth?.prevMonth)
+  
+  // console.log(dayParser({ daysOfMonth: state?.daysOfMonth?.daysOfMonth!, daysOfWeek: state?.daysOfWeek! }))
   return (
     <div class={style['calendar-container']}>
       <div class={style['calendar-buttons']}>
@@ -38,13 +43,13 @@ export const Calendar = () => {
    
   </thead>
   <tbody>
-    <For each={dayParser({ daysOfMonth: state?.daysOfMonth?.daysOfMonth!, daysOfWeek: state?.daysOfWeek! })}>
+    {/* <For each={dayParser({ daysOfMonth: state?.daysOfMonth?.daysOfMonth!, daysOfWeek: state?.daysOfWeek! })}>
       {(days, index) => (
         <tr>
           <td>{index() >= 5 ? days.day : ''}</td>
         </tr>
       )}
-    </For>
+    </For> */}
   </tbody>
 </table>
 

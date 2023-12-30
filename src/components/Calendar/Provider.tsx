@@ -1,11 +1,12 @@
 import { createContext, useContext } from 'solid-js';
 import { createStore } from 'solid-js/store';
+import { daysOfTheMonthParse } from '../../helpers/daysOfTheMonthParse';
 import type { ParentProps } from 'solid-js';
-import type { Actions, Calendar } from './interfaces/Provider';
+import type { Actions, Calendar, Months } from './interfaces/Provider';
 
 const initialState: Calendar = {
   today: new Date(),
-  daysOfMonth: { daysOfMonth: [] },
+  actualMonth: { actualMonth: [] },
   darkMode: false,
   daysOfWeek : {
     0:"Sunday",
@@ -15,7 +16,9 @@ const initialState: Calendar = {
     4: "Thursday",
     5: "Friday",
     6:"Saturday"
-  } 
+  },
+  prevMonth: { prevMonth: [] },
+  nextMonth: {nextMonth: [ ]} 
 
 };
 
@@ -25,23 +28,28 @@ export const CalendarProvider = (props: ParentProps<Calendar>) => {
   const [state, setState] = createStore<Calendar>({
     today: initialState.today,
     darkMode: initialState.darkMode,
-    daysOfMonth: initialState.daysOfMonth,
-    daysOfWeek: initialState.daysOfWeek
+    actualMonth: initialState.actualMonth,
+    daysOfWeek: initialState.daysOfWeek,
+    nextMonth: initialState.nextMonth,
+    prevMonth: initialState.prevMonth
   });
 
   const context: [Calendar, Actions] = [
     state,
     {
-      getDaysOfMonth(month = state.today?.getMonth(), year = state.today?.getFullYear()): void {
-        const date = new Date(year!, month!, 1);
-        const daysInMonth: Date[] = [];
-        while (date.getMonth() === month) {
-          daysInMonth.push(new Date(date));
-          date.setDate(date.getDate() + 1);
+      getDaysOfMonth(month = state.today?.getMonth(), year = state.today?.getFullYear()): void { 
+        const months :Months = {
+          prev: month! - 1 < 0 ? 11 : month! - 1,
+          actual: month!,
+          next: month! + 1 === 12 ? 0 : month! + 1
         }
-
-        setState('daysOfMonth', () => ({ ['daysOfMonth']: daysInMonth }));
-      }
+        const actualMonth = new Date(year!, months.actual, 1);
+        const nextMonth = new Date(year!, month! + 1 , 1);
+        const prevMonth = new Date(year!, months.prev , 1);
+        setState('actualMonth', () => ({ ['actualMonth']: daysOfTheMonthParse(actualMonth, months.actual) }));
+        setState('nextMonth', () => ({ ['nextMonth']: daysOfTheMonthParse(nextMonth, months.next) }));
+        setState('prevMonth', () => ({ ['prevMonth']: daysOfTheMonthParse(prevMonth, months.prev) }));
+      },
     }
   ];
 
