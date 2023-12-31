@@ -1,38 +1,50 @@
 import type { DaysOfWeek } from "../components/Calendar/interfaces/Provider";
 
 interface Props {
-  daysOfMonth: Date[];
+  actualMonth: Date[];
+  prevMonth: Date[];
+  nextMonth: Date[];
   daysOfWeek: DaysOfWeek;
 }
 
-export const dayParser = ({ daysOfMonth, daysOfWeek }: Props) => {
-  const daysOfWeekIndex = Object.keys(daysOfWeek);
+interface Day {
+  nDay: number;
+  day: string;
+  date: number;
+  month: number;
+  year: number;
+}
 
-  let count = 0;
-  let week = 0;
+export const dayParser = ({ actualMonth, prevMonth, nextMonth, daysOfWeek }: Props) => {
+  const mapDays = (days: Date[]): Day[] =>
+    days.map(day => ({
+      nDay: day.getDay(),
+      day: daysOfWeek[day.getDay() as keyof DaysOfWeek],
+      date: day.getDate(),
+      month: day.getMonth() + 1,
+      year: day.getFullYear()
+    }));
 
-  const daysOfMonthMap = daysOfMonth.reduce((acc, date) => {
-    const dayOfWeekKey = daysOfWeek[date.getDay() as keyof DaysOfWeek];
+  const daysOfMonthMap = mapDays(actualMonth);
 
-    if (!acc.has(week)) {
-      acc.set(week, {});
+  const subPrevMonth = mapDays(prevMonth.slice(-daysOfMonthMap[0]?.nDay));
+
+  const subNextMonth = mapDays(
+    nextMonth.slice(-daysOfMonthMap[daysOfMonthMap?.length - 1]?.nDay, 6)
+  );
+
+  const month = [...subPrevMonth, ...daysOfMonthMap, ...subNextMonth];
+
+  const parsedMonth = [];
+  for (let i = 0; i <= month.length; i++) {
+    if (Math.floor(i % 7) === 0 && i !== 0) {
+      const orderedWeek = month.slice(i - 7, i).reduce((acc, el) => {
+        acc = { ...acc, [el.nDay]: el.date };
+        return acc;
+      }, {});
+      parsedMonth.push(orderedWeek);
     }
+  }
 
-    if (!acc.get(week)![dayOfWeekKey]) {
-      acc.get(week)![dayOfWeekKey] = [];
-    }
-
-    acc.get(week)![dayOfWeekKey].push({ day: dayOfWeekKey, date: date.getDate() });
-
-    count++;
-
-    if (count === 7) {
-      count = 0;
-      week++;
-    }
-
-    return acc;
-  }, new Map<number, Record<string, { day: string; date: number }[]>>());
-
-  return daysOfMonthMap;
+  return parsedMonth;
 };

@@ -12,7 +12,7 @@ function App() {
         "align-items": "center"
       }}
     >
-      <CalendarProvider daysOfMonth={{ daysOfMonth: [] }}>
+      <CalendarProvider >
         <Calendar />
       </CalendarProvider>
     </main>
