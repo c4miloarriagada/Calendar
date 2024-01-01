@@ -1,17 +1,15 @@
 import { useCalendarContext } from "./Provider";
-import { For, createEffect } from "solid-js";
+import { For } from "solid-js";
 import { CalendarButtons } from "./CalendarButtons";
 import style from "./Calendar.module.css";
 import { dayParser } from "../../helpers/dayParser";
 
 export const Calendar = () => {
-  const [state, { getDaysOfMonth }] = useCalendarContext();
+  const [state, {  }] = useCalendarContext();
   const month = state.today?.toLocaleString("default", { month: "long" }).split(" ")[0];
   const year = state.today?.getFullYear();
-  createEffect(() => {
-    getDaysOfMonth && getDaysOfMonth();
-  });
 
+  
   return (
     <div class={style["calendar-container"]}>
       <div class={style["calendar-buttons"]}>
@@ -34,19 +32,13 @@ export const Calendar = () => {
             </For>
           </thead>
           <tbody>
+            
             <For
-              each={dayParser({
-                actualMonth: state.actualMonth?.actualMonth!,
-                nextMonth: state.nextMonth?.nextMonth!,
-                prevMonth: state.prevMonth?.prevMonth!,
-                daysOfWeek: state.daysOfWeek!
-              })}
+              each={state.parsedActualMonth?.parsedActualMonth}
             >
-              {(days) => (
-                <tr >
-                  {Object.values(days).map((day) => (
-                    <td>{day as string}</td>
-                  ))}
+              {days => (
+                <tr>
+                  <For each={days}>{day => <td>{day.day}</td>}</For>
                 </tr>
               )}
             </For>
@@ -56,3 +48,4 @@ export const Calendar = () => {
     </div>
   );
 };
+

@@ -5,6 +5,7 @@ export interface Calendar {
   daysOfWeek?: DaysOfWeek;
   prevMonth?: { prevMonth: Date[] };
   nextMonth?: { nextMonth: Date[] };
+  parsedActualMonth?: { parsedActualMonth: Day[][] };
 }
 
 export type Months = {
@@ -23,5 +24,13 @@ export type DaysOfWeek = {
   6: "Saturday";
 };
 export interface Actions {
-  getDaysOfMonth?: (month?: number, year?: number) => void;
+  getDaysOfMonth: (month?: number, year?: number) => void;
+}
+
+export interface Day {
+  nDay: number;
+  day: string | number;
+  date: number;
+  month: number;
+  year: number;
 }

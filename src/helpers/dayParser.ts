@@ -1,4 +1,4 @@
-import type { DaysOfWeek } from "../components/Calendar/interfaces/Provider";
+import type { Day, DaysOfWeek } from "../components/Calendar/interfaces/Provider";
 
 interface Props {
   actualMonth: Date[];
@@ -7,14 +7,8 @@ interface Props {
   daysOfWeek: DaysOfWeek;
 }
 
-interface Day {
-  nDay: number;
-  day: string;
-  date: number;
-  month: number;
-  year: number;
-}
-
+const NEXT_MONTH_WEEK = [0, 6];
+const DAYS_IN_WEEK = 7;
 export const dayParser = ({ actualMonth, prevMonth, nextMonth, daysOfWeek }: Props) => {
   const mapDays = (days: Date[]): Day[] =>
     days.map(day => ({
@@ -29,22 +23,31 @@ export const dayParser = ({ actualMonth, prevMonth, nextMonth, daysOfWeek }: Pro
 
   const subPrevMonth = mapDays(prevMonth.slice(-daysOfMonthMap[0]?.nDay));
 
-  const subNextMonth = mapDays(
-    nextMonth.slice(-daysOfMonthMap[daysOfMonthMap?.length - 1]?.nDay, 6)
-  );
+  const subNextMonth = mapDays(nextMonth.slice(NEXT_MONTH_WEEK[0], NEXT_MONTH_WEEK[1]));
 
   const month = [...subPrevMonth, ...daysOfMonthMap, ...subNextMonth];
 
-  const parsedMonth = [];
-  for (let i = 0; i <= month.length; i++) {
-    if (Math.floor(i % 7) === 0 && i !== 0) {
-      const orderedWeek = month.slice(i - 7, i).reduce((acc, el) => {
-        acc = { ...acc, [el.nDay]: el.date };
-        return acc;
-      }, {});
-      parsedMonth.push(orderedWeek);
-    }
-  }
+  const parsedMonth = () => {
+    const parsedMonth: Day[][] = [];
+    month.reduce((acc, el, i) => {
+      const currentWeek = Math.floor(i / DAYS_IN_WEEK);
 
-  return parsedMonth;
+      if (!acc[currentWeek]) {
+        acc[currentWeek] = [];
+      }
+
+      acc[currentWeek].push({
+        day: el.date,
+        date: el.date,
+        month: el.month,
+        year: el.year,
+        nDay: el.nDay
+      });
+      return acc;
+    }, parsedMonth);
+
+    return parsedMonth;
+  };
+
+  return parsedMonth();
 };
