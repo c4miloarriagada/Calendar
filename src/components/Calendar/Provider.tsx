@@ -71,7 +71,8 @@ export const CalendarProvider = (props: ParentProps<Calendar>) => {
         actualMonth: state.actualMonth?.actualMonth!,
         nextMonth: state.nextMonth?.nextMonth!,
         prevMonth: state.prevMonth?.prevMonth!,
-        daysOfWeek: state.daysOfWeek!
+        daysOfWeek: state.daysOfWeek!,
+        today: state.today!
       })
     }));
   });

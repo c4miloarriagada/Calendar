@@ -2,23 +2,22 @@ import { useCalendarContext } from "./Provider";
 import { For } from "solid-js";
 import { CalendarButtons } from "./CalendarButtons";
 import style from "./Calendar.module.css";
-import { dayParser } from "../../helpers/dayParser";
+import { Cell } from "./Cell";
 
 export const Calendar = () => {
-  const [state, {  }] = useCalendarContext();
+  const [state, {}] = useCalendarContext();
   const month = state.today?.toLocaleString("default", { month: "long" }).split(" ")[0];
   const year = state.today?.getFullYear();
 
-  
   return (
     <div class={style["calendar-container"]}>
       <div class={style["calendar-buttons"]}>
         <span>
-          <CalendarButtons iconDirection="left" />{" "}
+          <CalendarButtons  iconDirection="left" />{" "}
         </span>
         <span>
           {" "}
-          {month} {year}
+          { month } { year }
         </span>
         <span>
           <CalendarButtons iconDirection="right" />{" "}
@@ -32,13 +31,14 @@ export const Calendar = () => {
             </For>
           </thead>
           <tbody>
-            
-            <For
-              each={state.parsedActualMonth?.parsedActualMonth}
-            >
+            <For each={state.parsedActualMonth?.parsedActualMonth}>
               {days => (
                 <tr>
-                  <For each={days}>{day => <td>{day.day}</td>}</For>
+                  <For each={days}>
+                    {day => (
+                      <Cell {...day} />
+                    )}
+                  </For>
                 </tr>
               )}
             </For>
@@ -48,4 +48,3 @@ export const Calendar = () => {
     </div>
   );
 };
-

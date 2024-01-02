@@ -33,4 +33,6 @@ export interface Day {
   date: number;
   month: number;
   year: number;
+  activeMonth: boolean;
+  today: boolean;
 }
