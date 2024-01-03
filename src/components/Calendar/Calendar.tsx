@@ -1,23 +1,26 @@
 import { useCalendarContext } from "./Provider";
-import { For } from "solid-js";
+import { For, createEffect } from "solid-js";
 import { CalendarButtons } from "./CalendarButtons";
 import style from "./Calendar.module.css";
 import { Cell } from "./Cell";
 
 export const Calendar = () => {
-  const [state, {}] = useCalendarContext();
-  const month = state.today?.toLocaleString("default", { month: "long" }).split(" ")[0];
-  const year = state.today?.getFullYear();
+  const [state, { setCalendarMonth }] = useCalendarContext();
+
+  createEffect(() => {
+    setCalendarMonth();
+  });
 
   return (
     <div class={style["calendar-container"]}>
       <div class={style["calendar-buttons"]}>
         <span>
-          <CalendarButtons  iconDirection="left" />{" "}
+          <CalendarButtons iconDirection="left" />{" "}
         </span>
         <span>
-          {" "}
-          { month } { year }
+          {`${state.actualMonth?.actualMonth[0]
+            ?.toLocaleString("default", { month: "long" })
+            .split(" ")[0]}    ${state?.actualMonth?.actualMonth[0]?.getFullYear()}`}
         </span>
         <span>
           <CalendarButtons iconDirection="right" />{" "}
@@ -34,11 +37,7 @@ export const Calendar = () => {
             <For each={state.parsedActualMonth?.parsedActualMonth}>
               {days => (
                 <tr>
-                  <For each={days}>
-                    {day => (
-                      <Cell {...day} />
-                    )}
-                  </For>
+                  <For each={days}>{day => <Cell {...day} />}</For>
                 </tr>
               )}
             </For>

@@ -25,7 +25,7 @@ const initialState: Calendar = {
 
 const CalendarContext = createContext<[Calendar, Actions]>([
   initialState,
-  { getDaysOfMonth: () => {} }
+  { getDaysOfMonth: () => {},  setCalendarMonth: ()=> {}}
 ]);
 
 export const CalendarProvider = (props: ParentProps<Calendar>) => {
@@ -51,6 +51,7 @@ export const CalendarProvider = (props: ParentProps<Calendar>) => {
         const actualMonth = new Date(year!, months.actual, 1);
         const nextMonth = new Date(year!, month! + 1, 1);
         const prevMonth = new Date(yearHandler!, months.prev, 1);
+
         setState("actualMonth", () => ({
           ["actualMonth"]: daysOfTheMonthParse(actualMonth, months.actual)
         }));
@@ -60,13 +61,9 @@ export const CalendarProvider = (props: ParentProps<Calendar>) => {
         setState("prevMonth", () => ({
           ["prevMonth"]: daysOfTheMonthParse(prevMonth, months.prev)
         }));
-      }
-    }
-  ];
-
-  onMount(() => {
-    context[1].getDaysOfMonth();
-    setState("parsedActualMonth", () => ({
+      },
+      setCalendarMonth(){
+        setState("parsedActualMonth", () => ({
       ["parsedActualMonth"]: dayParser({
         actualMonth: state.actualMonth?.actualMonth!,
         nextMonth: state.nextMonth?.nextMonth!,
@@ -75,6 +72,14 @@ export const CalendarProvider = (props: ParentProps<Calendar>) => {
         today: state.today!
       })
     }));
+
+      }
+    }
+  ];
+
+  onMount(() => {
+    context[1].getDaysOfMonth();
+    context[1].setCalendarMonth();
   });
 
   return (

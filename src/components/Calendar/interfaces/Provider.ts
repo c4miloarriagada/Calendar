@@ -25,6 +25,7 @@ export type DaysOfWeek = {
 };
 export interface Actions {
   getDaysOfMonth: (month?: number, year?: number) => void;
+  setCalendarMonth: () => void;
 }
 
 export interface Day {
