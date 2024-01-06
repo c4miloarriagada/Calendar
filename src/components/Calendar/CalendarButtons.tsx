@@ -13,16 +13,21 @@ export const CalendarButtons = (props: Props) => {
 
   const handleClick = (iconDirection: Direction) => {
     if (iconDirection === 'left') {
-      //!peding
-      getDaysOfMonth(
-        state.actualMonth?.actualMonth[0]?.getMonth()!,
-        state.today?.getFullYear()
+      const yearValidator = (month: number, year: number) => {
+        if (month === -1) {
+          return [year - 1, 11]
+        }
+        return [year, month]
+      }
+      const [validYear, validMonth] = yearValidator(
+        state.actualMonth?.actualMonth[0].getMonth()! - 1,
+        state.actualMonth?.actualMonth[0].getFullYear()!
       )
+
+      getDaysOfMonth(validMonth, validYear)
     }
 
-
     if (iconDirection === 'right') {
-      
       const yearValidator = (month: number, year: number) => {
         if (month === 12 && state.yearHandler.yearHandler > 0) {
           return [year + 1, 0]

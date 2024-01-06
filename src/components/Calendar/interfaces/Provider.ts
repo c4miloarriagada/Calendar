@@ -1,6 +1,5 @@
 export interface Calendar {
   today?: Date
-  darkMode?: boolean
   actualMonth?: { actualMonth: Date[] }
   daysOfWeek?: DaysOfWeek
   prevMonth?: { prevMonth: Date[] }

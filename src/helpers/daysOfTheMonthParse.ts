@@ -4,5 +4,6 @@ export const daysOfTheMonthParse = (date: Date, month: number) => {
     daysInMonth.push(new Date(date))
     date.setDate(date.getDate() + 1)
   }
+
   return daysInMonth
 }

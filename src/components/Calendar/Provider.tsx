@@ -12,7 +12,6 @@ const initialState: Calendar = {
   actualMonth: { actualMonth: [] },
   prevMonth: { prevMonth: [] },
   nextMonth: { nextMonth: [] },
-  darkMode: false,
   daysOfWeek: {
     0: 'Sunday',
     1: 'Monday',
@@ -34,7 +33,6 @@ const CalendarContext = createContext<[Calendar, Actions]>([
 export const CalendarProvider = (props: ParentProps<Calendar>) => {
   const [state, setState] = createStore<Calendar>({
     today: initialState.today,
-    darkMode: initialState.darkMode,
     actualMonth: initialState.actualMonth,
     daysOfWeek: initialState.daysOfWeek,
     nextMonth: initialState.nextMonth,
@@ -49,27 +47,39 @@ export const CalendarProvider = (props: ParentProps<Calendar>) => {
         month = state.today?.getMonth(),
         year = state.today?.getFullYear()
       ): void {
-        const months: Months = {
-          prev: month! - 1,
-          actual: month!,
-          next: month! + 1
+
+        const datePrevValidator = (month:number , year:number):[number, number] => {
+          if(month   ===  0 ){
+            return [11, year - 1]
+          }
+          return [month,year]
+        }
+        
+        const dateNexValidator = (month:number, year: number):[number, number]=> {
+          if(month + 1 === 12){
+
+            return [0, year + 1]
+          }
+          return [month + 1 ,year]
         }
 
-        const actualMonth = new Date(year!, months.actual, 1)
-        const nextMonth = new Date(year!, months.next, 1)
-        const prevMonth = new Date(year!, months.prev, 1)
+        const [monthValidated, prevYear] = datePrevValidator(month!, year!)
+        const [monthNextValidated, nextYear] = dateNexValidator(month!, year!)
+        const actualMonth = new Date(year!, month!, 1)
+        const nextMonth = new Date(nextYear, month! + 1, 1)
+        const prevMonth = new Date(prevYear!, monthValidated, 1)
 
         setState('yearHandler', () => ({
           ['yearHandler']: state.yearHandler.yearHandler + 1
         }))
         setState('actualMonth', () => ({
-          ['actualMonth']: daysOfTheMonthParse(actualMonth, months.actual)
+          ['actualMonth']: daysOfTheMonthParse(actualMonth,month!)
         }))
         setState('nextMonth', () => ({
-          ['nextMonth']: daysOfTheMonthParse(nextMonth, months.next)
+          ['nextMonth']: daysOfTheMonthParse(nextMonth, monthNextValidated)
         }))
         setState('prevMonth', () => ({
-          ['prevMonth']: daysOfTheMonthParse(prevMonth, months.prev)
+          ['prevMonth']: daysOfTheMonthParse(prevMonth, monthValidated)
         }))
       },
       setCalendarMonth(): void {
@@ -93,10 +103,7 @@ export const CalendarProvider = (props: ParentProps<Calendar>) => {
 
   return (
     <CalendarContext.Provider value={context}>
-      {' '}
-      <div class={`${state.darkMode ? 'darkmode' : ''}`}>
-        {props.children}
-      </div>{' '}
+      {props.children}
     </CalendarContext.Provider>
   )
 }
