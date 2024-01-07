@@ -3,7 +3,7 @@ import { createStore } from 'solid-js/store'
 import { daysOfTheMonthParse } from '../../helpers/daysOfTheMonthParse'
 import { dayParser } from '../../helpers/dayParser'
 import type { ParentProps } from 'solid-js'
-import type { Actions, Calendar, Months } from './interfaces/Provider'
+import type { Actions, Calendar } from './interfaces/Provider'
 
 const date = new Date()
 
@@ -47,33 +47,37 @@ export const CalendarProvider = (props: ParentProps<Calendar>) => {
         month = state.today?.getMonth(),
         year = state.today?.getFullYear()
       ): void {
-
-        const datePrevValidator = (month:number , year:number):[number, number] => {
-          if(month   ===  0 ){
+        const datePrevValidator = (
+          month: number,
+          year: number
+        ): [number, number] => {
+          if (month === 0) {
             return [11, year - 1]
           }
-          return [month,year]
+          return [month, year]
         }
-        
-        const dateNexValidator = (month:number, year: number):[number, number]=> {
-          if(month + 1 === 12){
 
+        const dateNexValidator = (
+          month: number,
+          year: number
+        ): [number, number] => {
+          if (month + 1 === 12) {
             return [0, year + 1]
           }
-          return [month + 1 ,year]
+          return [month + 1, year]
         }
 
         const [monthValidated, prevYear] = datePrevValidator(month!, year!)
         const [monthNextValidated, nextYear] = dateNexValidator(month!, year!)
         const actualMonth = new Date(year!, month!, 1)
-        const nextMonth = new Date(nextYear, month! + 1, 1)
+        const nextMonth = new Date(nextYear, monthNextValidated, 1)
         const prevMonth = new Date(prevYear!, monthValidated, 1)
 
         setState('yearHandler', () => ({
           ['yearHandler']: state.yearHandler.yearHandler + 1
         }))
         setState('actualMonth', () => ({
-          ['actualMonth']: daysOfTheMonthParse(actualMonth,month!)
+          ['actualMonth']: daysOfTheMonthParse(actualMonth, month!)
         }))
         setState('nextMonth', () => ({
           ['nextMonth']: daysOfTheMonthParse(nextMonth, monthNextValidated)

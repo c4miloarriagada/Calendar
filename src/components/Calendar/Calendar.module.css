@@ -1,9 +1,9 @@
 :root {
   --text-muted: #858f96f5;
-
   --border-color: #b8c0c5;
   --white: #ffffff;
-  --shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  --shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 }
 
 .calendar-container {
@@ -34,11 +34,18 @@
 
 .calendar-buttons > span {
   height: 2rem;
+
   font-size: 0.9rem;
   display: flex;
   align-items: end;
   text-align: center;
   font-weight: 500;
+}
+
+.month {
+  width: 8rem;
+  display: flex;
+  justify-content: center;
 }
 
 .month-button {
@@ -60,7 +67,11 @@
 }
 
 .month-button:hover {
-  background-color: var();
+  opacity: 100;
+  background-color: hsla(0, 0%, 90%, 0.55);
+  -webkit-transition: background-color 200ms linear;
+  -ms-transition: background-color 200ms linear;
+  transition: background-color 200ms linear;
 }
 
 .month-button:hover > svg {
@@ -83,6 +94,10 @@
 .day-btn {
   width: 4rem;
   height: 2rem;
+}
+
+.day-btn:hover {
+  background-color: hsl(0, 0%, 94%);
 }
 
 .day-btn > button {

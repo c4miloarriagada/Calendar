@@ -11,13 +11,14 @@ export const Calendar = () => {
     setCalendarMonth()
   })
 
+
   return (
     <div class={style['calendar-container']}>
       <div class={style['calendar-buttons']}>
         <span>
           <CalendarButtons iconDirection='left' />{' '}
         </span>
-        <span>
+        <span class={style["month"]}>
           {`${state.actualMonth?.actualMonth[0]
             ?.toLocaleString('default', { month: 'long' })
             .split(
@@ -37,10 +38,10 @@ export const Calendar = () => {
               )}
             </For>
           </thead>
-          <tbody>
+          <tbody >
             <For each={state.parsedActualMonth?.parsedActualMonth}>
               {(days) => (
-                <tr>
+                <tr class='fade-in'>
                   <For each={days}>{(day) => <Cell {...day} />}</For>
                 </tr>
               )}

@@ -25,7 +25,7 @@ export const dayParser = ({
       nDay: day.getDay(),
       day: daysOfWeek[day.getDay() as keyof DaysOfWeek],
       date: day.getDate(),
-      month: day.getMonth() + 1,
+      month: day.getMonth(),
       year: day.getFullYear(),
       activeMonth: active,
       today: today.toDateString() === day.toDateString()

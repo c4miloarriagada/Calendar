@@ -19,6 +19,7 @@ export const CalendarButtons = (props: Props) => {
         }
         return [year, month]
       }
+
       const [validYear, validMonth] = yearValidator(
         state.actualMonth?.actualMonth[0].getMonth()! - 1,
         state.actualMonth?.actualMonth[0].getFullYear()!

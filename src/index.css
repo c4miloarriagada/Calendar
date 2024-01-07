@@ -10,3 +10,23 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: antialiased;
 }
+
+.fade-in {
+  animation: fadeIn ease 200ms;
+}
+
+.transition-colors {
+  transition-property: color, background-color, border-color,
+    text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
