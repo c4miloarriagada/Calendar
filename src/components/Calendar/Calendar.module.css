@@ -2,9 +2,35 @@
   --text-muted: #858f96f5;
   --border-color: #b8c0c5;
   --white: #ffffff;
+  --black: hsl(0, 5%, 9%);
   --shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
     rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  --border-radius: 7px;
 }
+
+/* animatiosn */
+
+.fade-in {
+  animation: fadeIn ease 300ms;
+}
+
+.transition-colors {
+  transition-property: color, background-color, border-color,
+    text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* module */
 
 .calendar-container {
   height: 18rem;
@@ -64,6 +90,7 @@
 
 .today {
   background-color: hsl(0, 0%, 94%);
+  border-radius: var(--border-radius);
 }
 
 .month-button:hover {
@@ -98,6 +125,7 @@
 
 .day-btn:hover {
   background-color: hsl(0, 0%, 94%);
+  border-radius: var(--border-radius);
 }
 
 .day-btn > button {
@@ -108,10 +136,12 @@
   cursor: pointer;
 }
 
-.day-btn > button:disabled {
+.day-btn > button[aria-disabled='true'] {
   color: var(--text-muted);
 }
 
 .active {
-  color: var();
+  color: var(--white);
+  border-radius: var(--border-radius);
+  background-color: var(--black);
 }

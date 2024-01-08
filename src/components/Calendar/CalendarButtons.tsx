@@ -1,7 +1,7 @@
 import { Match, Switch } from 'solid-js'
+import { useCalendarContext } from './Provider'
 import { HiOutlineChevronLeft, HiOutlineChevronRight } from 'solid-icons/hi'
 import style from './Calendar.module.css'
-import { useCalendarContext } from './Provider'
 type Direction = 'right' | 'left'
 
 interface Props {

@@ -5,12 +5,11 @@ import style from './Calendar.module.css'
 import { Cell } from './Cell'
 
 export const Calendar = () => {
-  const [state, { setCalendarMonth }] = useCalendarContext()
+  const [state, { setCalendarMonth, setActiveDate }] = useCalendarContext()
 
   createEffect(() => {
     setCalendarMonth()
   })
-
 
   return (
     <div class={style['calendar-container']}>
@@ -18,7 +17,7 @@ export const Calendar = () => {
         <span>
           <CalendarButtons iconDirection='left' />{' '}
         </span>
-        <span class={style["month"]}>
+        <span class={style['month']}>
           {`${state.actualMonth?.actualMonth[0]
             ?.toLocaleString('default', { month: 'long' })
             .split(
@@ -38,11 +37,20 @@ export const Calendar = () => {
               )}
             </For>
           </thead>
-          <tbody >
+          <tbody class={style['fade-in']}>
             <For each={state.parsedActualMonth?.parsedActualMonth}>
               {(days) => (
-                <tr class='fade-in'>
-                  <For each={days}>{(day) => <Cell {...day} />}</For>
+                <tr>
+                  <For each={days}>
+                    {(day) => (
+                      <Cell
+                        {...day}
+                        setActiveDate={setActiveDate}
+                        actualMonth={state.actualMonth?.actualMonth[0].getMonth()!}
+                        dateEnd={state.activeDate?.activeDate.dateEnd ?? null}
+                      />
+                    )}
+                  </For>
                 </tr>
               )}
             </For>

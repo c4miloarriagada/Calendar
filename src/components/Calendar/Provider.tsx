@@ -27,7 +27,11 @@ const initialState: Calendar = {
 
 const CalendarContext = createContext<[Calendar, Actions]>([
   initialState,
-  { getDaysOfMonth: () => {}, setCalendarMonth: () => {} }
+  {
+    getDaysOfMonth: () => {},
+    setCalendarMonth: () => {},
+    setActiveDate: () => {}
+  }
 ])
 
 export const CalendarProvider = (props: ParentProps<Calendar>) => {
@@ -95,6 +99,11 @@ export const CalendarProvider = (props: ParentProps<Calendar>) => {
             daysOfWeek: state.daysOfWeek!,
             today: state.today!
           })
+        }))
+      },
+      setActiveDate(day: number, month: number, year: number): void {
+        setState('activeDate', () => ({
+          ['activeDate']: { dateEnd: { day, month, year } }
         }))
       }
     }

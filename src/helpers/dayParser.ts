@@ -23,7 +23,7 @@ export const dayParser = ({
   const mapDays = (days: Date[], active: boolean): Day[] =>
     days.map((day) => ({
       nDay: day.getDay(),
-      day: daysOfWeek[day.getDay() as keyof DaysOfWeek],
+      day: Number(daysOfWeek[day.getDay() as keyof DaysOfWeek]),
       date: day.getDate(),
       month: day.getMonth(),
       year: day.getFullYear(),
