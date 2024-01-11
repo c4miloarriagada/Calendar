@@ -4,7 +4,7 @@ import style from './Calendar.module.css'
 interface Props extends Day {
   setActiveDate: (day: number, month: number, year: number) => void
   dateEnd: ActiveDay | null
-  actualMonth: number
+  actualMonth: Date
 }
 
 export const Cell = (props: Props) => {
@@ -18,9 +18,9 @@ export const Cell = (props: Props) => {
     const { dateEnd } = props
 
     if (
-      dateEnd?.day === props?.day &&
-      dateEnd.month === props?.actualMonth &&
-      dateEnd.year === props?.year
+      dateEnd?.day === props.day &&
+      dateEnd.month === props.month &&
+      dateEnd.year === props.year
     ) {
       return true
     }

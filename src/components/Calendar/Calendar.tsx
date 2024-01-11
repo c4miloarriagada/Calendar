@@ -1,8 +1,8 @@
 import { useCalendarContext } from './Provider'
 import { For, createEffect } from 'solid-js'
 import { CalendarButtons } from './CalendarButtons'
-import style from './Calendar.module.css'
 import { Cell } from './Cell'
+import style from './Calendar.module.css'
 
 export const Calendar = () => {
   const [state, { setCalendarMonth, setActiveDate }] = useCalendarContext()
@@ -10,6 +10,8 @@ export const Calendar = () => {
   createEffect(() => {
     setCalendarMonth()
   })
+
+
 
   return (
     <div class={style['calendar-container']}>
@@ -46,7 +48,7 @@ export const Calendar = () => {
                       <Cell
                         {...day}
                         setActiveDate={setActiveDate}
-                        actualMonth={state.actualMonth?.actualMonth[0].getMonth()!}
+                        actualMonth={state.actualMonth?.actualMonth[0]!}
                         dateEnd={state.activeDate?.activeDate.dateEnd ?? null}
                       />
                     )}

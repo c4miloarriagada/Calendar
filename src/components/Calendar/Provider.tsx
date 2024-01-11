@@ -58,7 +58,7 @@ export const CalendarProvider = (props: ParentProps<Calendar>) => {
           if (month === 0) {
             return [11, year - 1]
           }
-          return [month, year]
+          return [month - 1, year]
         }
 
         const dateNexValidator = (
