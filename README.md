@@ -2,4 +2,5 @@
 
 
 
-![image](https://github.com/c4miloarriagada/Calendar/assets/95378920/c0c3f39b-72c2-4b7a-93e3-a008fd64c29d)
+
+![image](https://github.com/c4miloarriagada/Calendar/assets/95378920/01ac3234-cf0f-42d5-ad3f-0bc499a17e28)
