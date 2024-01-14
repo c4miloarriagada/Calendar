@@ -30,9 +30,9 @@ export const Cell = (props: Props) => {
   return (
     <td
       class={[
-        style['day-btn'],
-        props.today ? style['today'] : '',
-        activeDate() ? style['active'] : ''
+        style['calendar-t-body__table-data'],
+        props.today ? style['calendar-t-body__table-data--today'] : '',
+        activeDate() ? style['calendar-t-body__table-data--active'] : ''
       ].join(' ')}
     >
       {' '}

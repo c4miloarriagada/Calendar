@@ -50,7 +50,7 @@ export const CalendarButtons = (props: Props) => {
       <Match when={props.iconDirection === 'left'}>
         <button
           onclick={() => handleClick(props.iconDirection)}
-          class={style['month-button']}
+          class={style['calendar-container__button']}
         >
           <HiOutlineChevronLeft color='#858f96' size={15} />
         </button>
@@ -58,7 +58,7 @@ export const CalendarButtons = (props: Props) => {
       <Match when={props.iconDirection === 'right'}>
         <button
           onclick={() => handleClick(props.iconDirection)}
-          class={style['month-button']}
+          class={style['calendar-container__button']}
         >
           <HiOutlineChevronRight color='#858f96' size={15} />
         </button>

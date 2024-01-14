@@ -10,7 +10,7 @@
 
 /* animatiosn */
 
-.fade-in {
+.fade__in {
   animation: fadeIn ease 300ms;
 }
 
@@ -51,14 +51,14 @@
   background-color: aqua;
 }
 
-.calendar-buttons {
+.calendar-container__buttons {
   display: flex;
   justify-content: space-around;
   align-items: center;
   height: 2rem;
 }
 
-.calendar-buttons > span {
+.calendar-container__buttons > span {
   height: 2rem;
 
   font-size: 0.9rem;
@@ -68,13 +68,13 @@
   font-weight: 500;
 }
 
-.month {
+.calendar-container__month {
   width: 8rem;
   display: flex;
   justify-content: center;
 }
 
-.month-button {
+.calendar-container__button {
   all: unset;
   display: flex;
   align-items: center;
@@ -88,12 +88,12 @@
   justify-content: center;
 }
 
-.today {
+.calendar-t-body__table-data--today {
   background-color: hsl(0, 0%, 94%);
   border-radius: var(--border-radius);
 }
 
-.month-button:hover {
+.calendar-container__button:hover {
   opacity: 100;
   background-color: hsla(0, 0%, 90%, 0.55);
   -webkit-transition: background-color 200ms linear;
@@ -101,11 +101,11 @@
   transition: background-color 200ms linear;
 }
 
-.month-button:hover > svg {
+.calendar-container__button:hover > svg {
   color: black;
 }
 
-.calendar-table {
+.calendar-container__table {
   height: 100%;
   width: 100%;
 }
@@ -114,21 +114,21 @@
   color: var(--text-muted);
 }
 
-.calendar-days {
+.calendar-t-head__header {
   font-size: 1rem;
 }
 
-.day-btn {
+.calendar-t-body__table-data {
   width: 4rem;
   height: 2rem;
 }
 
-.day-btn:hover {
+.calendar-t-body__table-data:hover {
   background-color: hsl(0, 0%, 94%);
   border-radius: var(--border-radius);
 }
 
-.day-btn > button {
+.calendar-t-body__table-data > button {
   all: unset;
   width: 100%;
   height: 100%;
@@ -136,11 +136,11 @@
   cursor: pointer;
 }
 
-.day-btn > button[aria-disabled='true'] {
+.calendar-t-body__table-data > button[aria-disabled='true'] {
   color: var(--text-muted);
 }
 
-.active {
+.calendar-t-body__table-data--active {
   color: var(--white);
   border-radius: var(--border-radius);
   background-color: var(--black);

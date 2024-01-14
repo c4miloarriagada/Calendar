@@ -11,15 +11,13 @@ export const Calendar = () => {
     setCalendarMonth()
   })
 
-
-
   return (
     <div class={style['calendar-container']}>
-      <div class={style['calendar-buttons']}>
+      <div class={style['calendar-container__buttons']}>
         <span>
           <CalendarButtons iconDirection='left' />{' '}
         </span>
-        <span class={style['month']}>
+        <span class={style['calendar-container__month']}>
           {`${state.actualMonth?.actualMonth[0]
             ?.toLocaleString('default', { month: 'long' })
             .split(
@@ -31,15 +29,17 @@ export const Calendar = () => {
         </span>
       </div>
       <div>
-        <table class={style['calendar-table']} role='grid'>
+        <table class={style['calendar-container__table']} role='grid'>
           <thead class={style['calendar-t-head']}>
             <For each={Object.values(state?.daysOfWeek!)}>
               {(header) => (
-                <th class={style['calendar-days']}>{header.substring(0, 2)}</th>
+                <th class={style['calendar-t-head__header']}>
+                  {header.substring(0, 2)}
+                </th>
               )}
             </For>
           </thead>
-          <tbody class={style['fade-in']}>
+          <tbody class={style['fade__in']}>
             <For each={state.parsedActualMonth?.parsedActualMonth}>
               {(days) => (
                 <tr>
