@@ -2,7 +2,7 @@ import { useCalendarContext } from './Provider'
 import { For, createEffect } from 'solid-js'
 import { CalendarButtons } from './CalendarButtons'
 import { Cell } from './Cell'
-import style from './Calendar.module.css'
+import style from './../Calendar.module.css'
 
 export const Calendar = () => {
   const [state, { setCalendarMonth, setActiveDate }] = useCalendarContext()
@@ -17,12 +17,14 @@ export const Calendar = () => {
         <span>
           <CalendarButtons iconDirection='left' />{' '}
         </span>
-        <span class={style['calendar-container__month']}>
+        <span >
+          <p class={style['calendar-container__title']}>
           {`${state.actualMonth?.actualMonth[0]
             ?.toLocaleString('default', { month: 'long' })
             .split(
               ' '
             )[0]}    ${state?.actualMonth?.actualMonth[0]?.getFullYear()}`}
+          </p>
         </span>
         <span>
           <CalendarButtons iconDirection='right' />{' '}
@@ -39,7 +41,7 @@ export const Calendar = () => {
               )}
             </For>
           </thead>
-          <tbody class={style['fade__in']}>
+          <tbody class={style['calendar-t-body__table']}>
             <For each={state.parsedActualMonth?.parsedActualMonth}>
               {(days) => (
                 <tr>

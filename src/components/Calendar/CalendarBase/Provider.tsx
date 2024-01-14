@@ -1,9 +1,9 @@
 import { createContext, onMount, useContext } from 'solid-js'
 import { createStore } from 'solid-js/store'
-import { daysOfTheMonthParse } from '../../helpers/daysOfTheMonthParse'
-import { dayParser } from '../../helpers/dayParser'
+import { daysOfTheMonthParse } from '../../../helpers/daysOfTheMonthParse'
+import { dayParser } from '../../../helpers/dayParser'
 import type { ParentProps } from 'solid-js'
-import type { Actions, Calendar } from './interfaces/Provider'
+import type { Actions, Calendar } from './interfaces/provider'
 
 const date = new Date()
 
@@ -22,7 +22,7 @@ const initialState: Calendar = {
     6: 'Saturday'
   },
   parsedActualMonth: { parsedActualMonth: [] },
-  yearHandler: { yearHandler: 0 }
+  yearHandler: { yearHandler: 0 },
 }
 
 const CalendarContext = createContext<[Calendar, Actions]>([
@@ -41,7 +41,7 @@ export const CalendarProvider = (props: ParentProps<Calendar>) => {
     daysOfWeek: initialState.daysOfWeek,
     nextMonth: initialState.nextMonth,
     prevMonth: initialState.prevMonth,
-    yearHandler: initialState.yearHandler
+    yearHandler: initialState.yearHandler,
   })
 
   const context: [Calendar, Actions] = [
@@ -78,7 +78,7 @@ export const CalendarProvider = (props: ParentProps<Calendar>) => {
         const prevMonth = new Date(prevYear!, monthValidated, 1)
 
         setState('yearHandler', () => ({
-          ['yearHandler']: state.yearHandler.yearHandler + 1
+          ['yearHandler']: state.yearHandler!.yearHandler + 1
         }))
         setState('actualMonth', () => ({
           ['actualMonth']: daysOfTheMonthParse(actualMonth, month!)

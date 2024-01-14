@@ -10,10 +10,6 @@
 
 /* animatiosn */
 
-.fade__in {
-  animation: fadeIn ease 300ms;
-}
-
 .transition-colors {
   transition-property: color, background-color, border-color,
     text-decoration-color, fill, stroke;
@@ -68,7 +64,7 @@
   font-weight: 500;
 }
 
-.calendar-container__month {
+.calendar-container__title {
   width: 8rem;
   display: flex;
   justify-content: center;
@@ -118,6 +114,10 @@
   font-size: 1rem;
 }
 
+.calendar-t-body__table {
+  animation: fadeIn ease 300ms;
+}
+
 .calendar-t-body__table-data {
   width: 4rem;
   height: 2rem;
@@ -143,5 +143,10 @@
 .calendar-t-body__table-data--active {
   color: var(--white);
   border-radius: var(--border-radius);
+  background-color: var(--black);
+  animation: fadeIn ease 300ms;
+}
+
+.calendar-t-body__table-data--active:hover {
   background-color: var(--black);
 }

@@ -1,7 +1,7 @@
 import type {
   Day,
   DaysOfWeek
-} from '../components/Calendar/interfaces/Provider'
+} from '../components/Calendar/CalendarBase/interfaces/provider'
 
 interface Props {
   actualMonth: Date[]

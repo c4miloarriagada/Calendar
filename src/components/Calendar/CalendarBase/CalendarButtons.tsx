@@ -1,7 +1,8 @@
 import { Match, Switch } from 'solid-js'
 import { useCalendarContext } from './Provider'
 import { HiOutlineChevronLeft, HiOutlineChevronRight } from 'solid-icons/hi'
-import style from './Calendar.module.css'
+import style from './../Calendar.module.css'
+
 type Direction = 'right' | 'left'
 
 interface Props {
@@ -30,7 +31,7 @@ export const CalendarButtons = (props: Props) => {
 
     if (iconDirection === 'right') {
       const yearValidator = (month: number, year: number) => {
-        if (month === 12 && state.yearHandler.yearHandler > 0) {
+        if (month === 12 && state.yearHandler!.yearHandler > 0) {
           return [year + 1, 0]
         }
         return [year, month]

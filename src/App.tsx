@@ -1,5 +1,4 @@
-import { Calendar } from ".";
-import { CalendarProvider } from "./components/Calendar/Provider";
+import { CalendarWrapper } from "./components/Calendar/CalendarWrapper";
 
 function App() {
   return (
@@ -12,9 +11,7 @@ function App() {
         "align-items": "center"
       }}
     >
-      <CalendarProvider >
-        <Calendar />
-      </CalendarProvider>
+      <CalendarWrapper type="single"/>
     </main>
   );
 }

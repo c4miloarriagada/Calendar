@@ -1,5 +1,5 @@
-import { ActiveDay, Day } from './interfaces/Provider'
-import style from './Calendar.module.css'
+import { ActiveDay, Day } from './interfaces/provider'
+import style from './../Calendar.module.css'
 
 interface Props extends Day {
   setActiveDate: (day: number, month: number, year: number) => void

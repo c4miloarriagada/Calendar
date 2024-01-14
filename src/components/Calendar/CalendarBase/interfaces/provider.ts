@@ -5,7 +5,7 @@ export interface Calendar {
   prevMonth?: { prevMonth: Date[] }
   nextMonth?: { nextMonth: Date[] }
   parsedActualMonth?: { parsedActualMonth: Day[][] }
-  yearHandler: { yearHandler: number }
+  yearHandler?: { yearHandler: number }
   activeDate?: { activeDate: ActiveDate }
 }
 
