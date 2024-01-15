@@ -1,5 +1,5 @@
 :root {
-  --text-muted: #858f96f5;
+  --text-muted: #7b7b80f5;
   --border-color: #b8c0c5;
   --white: #ffffff;
   --black: hsl(0, 5%, 9%);
@@ -91,6 +91,8 @@
 
 .calendar-t-body__table-data--today {
   background-color: hsl(0, 0%, 94%);
+  width: 1.8rem;
+  height: 1.8rem;
   border-radius: var(--border-radius);
 }
 
@@ -130,16 +132,15 @@
   text-align: center;
 }
 
-.calendar-t-body__table-data:hover {
+.calendar-t-body__table-data > button:hover {
   background-color: hsl(0, 0%, 94%);
   border-radius: var(--border-radius);
 }
 
 .calendar-t-body__table-data > button {
   all: unset;
-  height: 1.8rem;
   width: 1.8rem;
-
+  height: 1.8rem;
   text-align: center;
 }
 
@@ -147,15 +148,14 @@
   color: var(--text-muted);
 }
 
-.calendar-t-body__table-data--active {
+.calendar-t-body__table-data--active > button {
   color: var(--white);
   border-radius: var(--border-radius);
   background-color: var(--black);
-
   animation: fadeIn ease 300ms;
   border: none;
 }
 
-.calendar-t-body__table-data--active:hover {
+.calendar-t-body__table-data--active > button:hover {
   background-color: var(--black);
 }
