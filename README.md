@@ -1,6 +1,4 @@
 # Date-Picker solid [WIP]
 
 
-
-
-![image](https://github.com/c4miloarriagada/Calendar/assets/95378920/01ac3234-cf0f-42d5-ad3f-0bc499a17e28)
+![image](https://github.com/c4miloarriagada/Calendar/assets/95378920/01ce6394-1fac-4973-b342-5f57bcd534c0)
