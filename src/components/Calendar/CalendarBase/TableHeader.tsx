@@ -1,6 +1,6 @@
 import { For } from 'solid-js'
 import style from './../Calendar.module.css'
-import type { DaysOfWeek } from './interfaces/provider'
+import type { DaysOfWeek } from './interfaces/calendar.interface'
 
 interface Props {
   daysOfWeek: DaysOfWeek

@@ -7,6 +7,7 @@ export interface Calendar {
   parsedActualMonth?: { parsedActualMonth: Day[][] }
   yearHandler?: { yearHandler: number }
   activeDate?: { activeDate: ActiveDate }
+  type: CalendarType
 }
 
 export type Months = {
@@ -38,6 +39,7 @@ export interface Day {
   year: number
   activeMonth: boolean
   today: boolean
+  deactivated: boolean
 }
 
 type ActiveDate = {
@@ -49,3 +51,11 @@ export type ActiveDay = {
   month: number
   year: number
 }
+
+export interface TypeHandler {
+  single: () => void
+  form: () => void
+  range: () => void
+}
+
+export type CalendarType = 'single' | 'range' | 'form'

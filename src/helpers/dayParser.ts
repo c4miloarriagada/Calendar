@@ -1,7 +1,7 @@
 import type {
   Day,
   DaysOfWeek
-} from '../components/Calendar/CalendarBase/interfaces/provider'
+} from '../components/Calendar/CalendarBase/interfaces/calendar.interface'
 
 interface Props {
   actualMonth: Date[]
@@ -9,6 +9,7 @@ interface Props {
   nextMonth: Date[]
   daysOfWeek: DaysOfWeek
   today: Date
+  deactivated: boolean
 }
 
 const NEXT_MONTH_WEEK = [0, 10]
@@ -18,9 +19,14 @@ export const dayParser = ({
   prevMonth,
   nextMonth,
   daysOfWeek,
-  today
+  today,
+  deactivated
 }: Props) => {
-  const mapDays = (days: Date[], active: boolean): Day[] =>
+  const mapDays = (
+    days: Date[],
+    active: boolean,
+    deactivated: boolean
+  ): Day[] =>
     days.map((day) => ({
       nDay: day.getDay(),
       day: Number(daysOfWeek[day.getDay() as keyof DaysOfWeek]),
@@ -28,7 +34,8 @@ export const dayParser = ({
       month: day.getMonth(),
       year: day.getFullYear(),
       activeMonth: active,
-      today: today.toDateString() === day.toDateString()
+      today: today.toDateString() === day.toDateString(),
+      deactivated: deactivated
     }))
 
   const sundayValidator = (day: number) => {
@@ -38,16 +45,18 @@ export const dayParser = ({
     return day
   }
 
-  const daysOfMonthMap = mapDays(actualMonth, true)
+  const daysOfMonthMap = mapDays(actualMonth, true, false)
 
   const subPrevMonth = mapDays(
     prevMonth.slice(-sundayValidator(daysOfMonthMap[0]?.nDay)),
+    false,
     false
   )
 
   const subNextMonth = mapDays(
     nextMonth.slice(NEXT_MONTH_WEEK[0], NEXT_MONTH_WEEK[1]),
-    false
+    false,
+    deactivated
   )
 
   const month = [...subPrevMonth, ...daysOfMonthMap, ...subNextMonth]
@@ -68,7 +77,8 @@ export const dayParser = ({
         year: el.year,
         nDay: el.nDay,
         activeMonth: el.activeMonth,
-        today: el.today
+        today: el.today,
+        deactivated: el.deactivated
       })
       return acc
     }, parsedMonth)

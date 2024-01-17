@@ -1,4 +1,4 @@
-import { ActiveDay, Day } from './interfaces/provider'
+import { ActiveDay, Day } from './interfaces/calendar.interface'
 import style from './../Calendar.module.css'
 
 interface Props extends Day {
@@ -40,6 +40,7 @@ export const Cell = (props: Props) => {
         role='gridcell'
         aria-disabled={!props.activeMonth}
         onClick={handleClick}
+        disabled={props.deactivated}
       >
         {props.day}
       </button>

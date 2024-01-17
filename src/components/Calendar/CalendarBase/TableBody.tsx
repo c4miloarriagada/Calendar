@@ -1,6 +1,6 @@
 import { For } from 'solid-js'
 import { Cell } from './Cell'
-import type { ActiveDay, Day } from './interfaces/provider'
+import type { ActiveDay, Day } from './interfaces/calendar.interface'
 import style from './../Calendar.module.css'
 
 interface Props {

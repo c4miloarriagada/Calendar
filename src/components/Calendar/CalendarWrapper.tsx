@@ -1,35 +1,32 @@
 import { CalendarProvider } from './CalendarBase/Provider'
 import { Calendar } from '.'
+import type { CalendarType } from './CalendarBase/interfaces/calendar.interface'
 
-interface CalendarWrapper {
-  type: 'single' | 'range'
+export interface CalendarWrapper {
+  type: CalendarType
 }
 
 export const CalendarWrapper = ({ type }: CalendarWrapper) => {
   const renderCalendar = () => {
-    if (type === 'single') {
-      return (
-        <>
-          <CalendarProvider>
-            <Calendar />
-          </CalendarProvider>
-        </>
-      )
-    }
     if (type === 'range') {
       return (
         <>
-        //!todo
-          <CalendarProvider>
+          //!todo
+          <CalendarProvider type='range'>
             <Calendar />
           </CalendarProvider>
-          <CalendarProvider>
+          <CalendarProvider type='range'>
             <Calendar />
           </CalendarProvider>
         </>
       )
+    } else {
+      return (
+        <CalendarProvider type={type}>
+          <Calendar />
+        </CalendarProvider>
+      )
     }
-    ;<></>
   }
   return <>{renderCalendar()}</>
 }
