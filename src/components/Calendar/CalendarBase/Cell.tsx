@@ -39,8 +39,8 @@ export const Cell = (props: Props) => {
       <button
         role='gridcell'
         aria-disabled={!props.activeMonth}
+        disabled={props.disabled}
         onClick={handleClick}
-        disabled={props.deactivated}
       >
         {props.day}
       </button>

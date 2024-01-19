@@ -7,7 +7,7 @@ export interface Calendar {
   parsedActualMonth?: { parsedActualMonth: Day[][] }
   yearHandler?: { yearHandler: number }
   activeDate?: { activeDate: ActiveDate }
-  type: CalendarType
+  type: CalendarType | undefined
 }
 
 export type Months = {
@@ -27,7 +27,7 @@ export type DaysOfWeek = {
 }
 export interface Actions {
   getDaysOfMonth: (month?: number, year?: number) => void
-  setCalendarMonth: () => void
+  setCalendarMonth: (type: CalendarType) => void
   setActiveDate: (day: number, month: number, year: number) => void
 }
 
@@ -39,7 +39,7 @@ export interface Day {
   year: number
   activeMonth: boolean
   today: boolean
-  deactivated: boolean
+  disabled: boolean
 }
 
 type ActiveDate = {

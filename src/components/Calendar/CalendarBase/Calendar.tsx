@@ -9,7 +9,7 @@ export const Calendar = () => {
   const [state, { setCalendarMonth, setActiveDate }] = useCalendarContext()
 
   createEffect(() => {
-    setCalendarMonth()
+    setCalendarMonth(state.type!)
   })
 
   return (

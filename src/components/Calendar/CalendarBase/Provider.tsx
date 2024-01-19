@@ -1,4 +1,4 @@
-import { createContext, createEffect, onMount, useContext } from 'solid-js'
+import { createContext, onMount, useContext } from 'solid-js'
 import { createStore } from 'solid-js/store'
 import { daysOfTheMonthParse } from '../../../helpers/daysOfTheMonthParse'
 import { dayParser } from '../../../helpers/dayParser'
@@ -6,8 +6,10 @@ import type { ParentProps } from 'solid-js'
 import type {
   Actions,
   Calendar,
-  TypeHandler
+  TypeHandler,
+  CalendarType
 } from './interfaces/calendar.interface'
+import { formParser } from '../../../helpers/formParser'
 
 const date = new Date()
 
@@ -27,7 +29,7 @@ const initialState: Calendar = {
   },
   parsedActualMonth: { parsedActualMonth: [] },
   yearHandler: { yearHandler: 0 },
-  type: 'single'
+  type: undefined
 }
 
 const CalendarContext = createContext<[Calendar, Actions]>([
@@ -47,10 +49,8 @@ export const CalendarProvider = (props: ParentProps<Calendar>) => {
     nextMonth: initialState.nextMonth,
     prevMonth: initialState.prevMonth,
     yearHandler: initialState.yearHandler,
-    type: initialState.type
+    type: props.type
   })
-
-  
   const context: [Calendar, Actions] = [
     state,
     {
@@ -97,37 +97,28 @@ export const CalendarProvider = (props: ParentProps<Calendar>) => {
           ['prevMonth']: daysOfTheMonthParse(prevMonth, monthValidated)
         }))
       },
-      setCalendarMonth(): void {
-        console.log(state.type)
+      setCalendarMonth(type: CalendarType): void {
+        const calendarBase = dayParser({
+          actualMonth: state.actualMonth?.actualMonth!,
+          nextMonth: state.nextMonth?.nextMonth!,
+          prevMonth: state.prevMonth?.prevMonth!,
+          daysOfWeek: state.daysOfWeek!,
+          today: state.today!
+        })
         const typeHandler: TypeHandler = {
           single: () => {
             setState('parsedActualMonth', () => ({
-              ['parsedActualMonth']: dayParser({
-                actualMonth: state.actualMonth?.actualMonth!,
-                nextMonth: state.nextMonth?.nextMonth!,
-                prevMonth: state.prevMonth?.prevMonth!,
-                daysOfWeek: state.daysOfWeek!,
-                today: state.today!,
-                deactivated: false
-              })
+              ['parsedActualMonth']: calendarBase
             }))
           },
           range: () => {},
           form: () => {
-            console.log(state.type)
             setState('parsedActualMonth', () => ({
-              ['parsedActualMonth']: dayParser({
-                actualMonth: state.actualMonth?.actualMonth!,
-                nextMonth: state.nextMonth?.nextMonth!,
-                prevMonth: state.prevMonth?.prevMonth!,
-                daysOfWeek: state.daysOfWeek!,
-                today: state.today!,
-                deactivated: true
-              })
+              ['parsedActualMonth']: formParser(calendarBase, date)
             }))
           }
         }
-        typeHandler[state.type]()
+        typeHandler[type]()
       },
       setActiveDate(day: number, month: number, year: number): void {
         setState('activeDate', () => ({
@@ -137,10 +128,9 @@ export const CalendarProvider = (props: ParentProps<Calendar>) => {
     }
   ]
 
-
   onMount(() => {
     context[1].getDaysOfMonth()
-    context[1].setCalendarMonth()
+    context[1].setCalendarMonth(props.type ?? 'single')
   })
 
   return (
