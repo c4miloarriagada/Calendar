@@ -8,25 +8,11 @@ export interface CalendarWrapper {
 
 export const CalendarWrapper = ({ type }: CalendarWrapper) => {
   const renderCalendar = () => {
-    if (type === 'range') {
-      return (
-        <>
-          //!todo
-          <CalendarProvider type='range'>
-            <Calendar />
-          </CalendarProvider>
-          <CalendarProvider type='range'>
-            <Calendar />
-          </CalendarProvider>
-        </>
-      )
-    } else {
-      return (
-        <CalendarProvider type={type}>
-          <Calendar />
-        </CalendarProvider>
-      )
-    }
+    return (
+      <CalendarProvider type={type}>
+        <Calendar />
+      </CalendarProvider>
+    )
   }
   return <>{renderCalendar()}</>
 }

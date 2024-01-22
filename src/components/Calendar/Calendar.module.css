@@ -159,3 +159,39 @@
 .calendar-t-body__table-data--active > button:hover {
   background-color: var(--black);
 }
+
+.calendar-container-range {
+  display: flex;
+  border-radius: 0.3rem;
+  border: 1px solid var(--border-color);
+  flex-direction: column;
+}
+
+.calendar-container-range__range_wrapper {
+  display: flex;
+}
+
+.calendar-container-range__container {
+  height: 19rem;
+  width: 16rem;
+  background-color: var(--white);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  border-radius: 0.3rem;
+}
+
+.calendar-handler-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.calendar-handler-container__buttons_container {
+  display: flex;
+  justify-content: space-evenly;
+  width: 40%;
+  align-items: center;
+  height: 2.9rem;
+}

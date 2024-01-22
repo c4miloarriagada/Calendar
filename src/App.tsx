@@ -11,7 +11,7 @@ function App() {
         'align-items': 'center'
       }}
     >
-      <CalendarWrapper type='form' />
+      <CalendarWrapper type='range' />
     </main>
   )
 }

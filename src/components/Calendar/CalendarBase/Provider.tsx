@@ -2,6 +2,7 @@ import { createContext, onMount, useContext } from 'solid-js'
 import { createStore } from 'solid-js/store'
 import { daysOfTheMonthParse } from '../../../helpers/daysOfTheMonthParse'
 import { dayParser } from '../../../helpers/dayParser'
+import { formParser } from '../../../helpers/formParser'
 import type { ParentProps } from 'solid-js'
 import type {
   Actions,
@@ -9,9 +10,14 @@ import type {
   TypeHandler,
   CalendarType
 } from './interfaces/calendar.interface'
-import { formParser } from '../../../helpers/formParser'
 
 const date = new Date()
+
+const nextMonth = new Date(
+  date.getMonth() === 11 ? date.getFullYear() + 1 : date.getFullYear(),
+  (date.getMonth() + 1) % 12,
+  1
+)
 
 const initialState: Calendar = {
   today: date,
@@ -111,7 +117,11 @@ export const CalendarProvider = (props: ParentProps<Calendar>) => {
               ['parsedActualMonth']: calendarBase
             }))
           },
-          range: () => {},
+          range: () => {
+            setState('parsedActualMonth', () => ({
+              ['parsedActualMonth']: calendarBase
+            }))
+          },
           form: () => {
             setState('parsedActualMonth', () => ({
               ['parsedActualMonth']: formParser(calendarBase, date)

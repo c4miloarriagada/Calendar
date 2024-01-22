@@ -1,4 +1,4 @@
-import { Day } from '../components/Calendar/CalendarBase/interfaces/calendar.interface'
+import type { Day } from '../components/Calendar/CalendarBase/interfaces/calendar.interface'
 
 export const formParser = (month: Day[][], today: Date) => {
   const calendarForm: Day[][] = []
