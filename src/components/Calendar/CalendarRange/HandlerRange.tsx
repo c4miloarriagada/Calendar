@@ -3,6 +3,7 @@ import style from './../Calendar.module.css'
 
 interface Props {
   actualMonth: Date[]
+  nextMonth: Date[]
 }
 
 export const HandlerRange = (props: Props) => {
@@ -23,9 +24,9 @@ export const HandlerRange = (props: Props) => {
       <div class={style['calendar-handler-container__buttons_container']}>
         <span>
           <p class={style['calendar-container__title']}>
-            {`${props.actualMonth[0] 
+            {`${props.nextMonth[0] 
               ?.toLocaleString('default', { month: 'long' })
-              .split(' ')[0]}    ${props.actualMonth[0]?.getFullYear()}`}
+              .split(' ')[0]}    ${props.nextMonth[0]?.getFullYear()}`}
           </p>
         </span>
         <span>

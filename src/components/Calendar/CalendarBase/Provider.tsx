@@ -10,14 +10,12 @@ import type {
   TypeHandler,
   CalendarType
 } from './interfaces/calendar.interface'
+import {
+  dateNexValidator,
+  datePrevValidator
+} from '../../../helpers/dateValidators'
 
 const date = new Date()
-
-const nextMonth = new Date(
-  date.getMonth() === 11 ? date.getFullYear() + 1 : date.getFullYear(),
-  (date.getMonth() + 1) % 12,
-  1
-)
 
 const initialState: Calendar = {
   today: date,
@@ -64,26 +62,6 @@ export const CalendarProvider = (props: ParentProps<Calendar>) => {
         month = state.today?.getMonth(),
         year = state.today?.getFullYear()
       ): void {
-        const datePrevValidator = (
-          month: number,
-          year: number
-        ): [number, number] => {
-          if (month === 0) {
-            return [11, year - 1]
-          }
-          return [month - 1, year]
-        }
-
-        const dateNexValidator = (
-          month: number,
-          year: number
-        ): [number, number] => {
-          if (month + 1 === 12) {
-            return [0, year + 1]
-          }
-          return [month + 1, year]
-        }
-
         const [monthValidated, prevYear] = datePrevValidator(month!, year!)
         const [monthNextValidated, nextYear] = dateNexValidator(month!, year!)
         const actualMonth = new Date(year!, month!, 1)
@@ -118,9 +96,34 @@ export const CalendarProvider = (props: ParentProps<Calendar>) => {
             }))
           },
           range: () => {
+            const [monthNextValidated, nextYear] = dateNexValidator(
+              state.nextMonth?.nextMonth[0].getMonth()!,
+              state.nextMonth?.nextMonth[0].getFullYear()!
+            )
+
+            const [monthValidated, prevYear] = datePrevValidator(
+              state.nextMonth?.nextMonth[0].getMonth()!,
+              state.nextMonth?.nextMonth[0].getFullYear()!
+            )
+
+            const nextMonth = dayParser({
+              actualMonth: state.nextMonth?.nextMonth!,
+              nextMonth: daysOfTheMonthParse(
+                new Date(nextYear, monthNextValidated, 1),
+                monthNextValidated
+              ),
+              prevMonth: daysOfTheMonthParse(
+                new Date(prevYear, monthValidated, 1),
+                monthValidated
+              ),
+              daysOfWeek: state.daysOfWeek!,
+              today: state.today!
+            })
+
             setState('parsedActualMonth', () => ({
               ['parsedActualMonth']: calendarBase
             }))
+            setState('rangeNextDays', nextMonth)
           },
           form: () => {
             setState('parsedActualMonth', () => ({

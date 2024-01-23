@@ -7,6 +7,8 @@ export interface Calendar {
   parsedActualMonth?: { parsedActualMonth: Day[][] }
   yearHandler?: { yearHandler: number }
   activeDate?: { activeDate: ActiveDate }
+  rangeNextDays?: Day[][]
+  rangeNextMonth?: Date
   type: CalendarType | undefined
 }
 
