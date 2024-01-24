@@ -134,8 +134,23 @@ export const CalendarProvider = (props: ParentProps<Calendar>) => {
         typeHandler[type]()
       },
       setActiveDate(day: number, month: number, year: number): void {
+        if (
+          state.activeDate?.activeDate.dateEnd &&
+          Object.values(state.activeDate?.activeDate.dateEnd).length > 0
+        ) {
+          setState('activeDate', () => ({
+            ['activeDate']: {
+              ['dateEnd']: state.activeDate?.activeDate.dateEnd,
+              ['dateBegin']: { day, month, year }
+            }
+          }))
+          
+          return
+        }
         setState('activeDate', () => ({
-          ['activeDate']: { dateEnd: { day, month, year } }
+          ['activeDate']: {
+            dateEnd: { day, month, year }
+          }
         }))
       }
     }

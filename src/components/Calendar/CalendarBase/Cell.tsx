@@ -4,27 +4,37 @@ import style from './../Calendar.module.css'
 interface Props extends Day {
   setActiveDate: (day: number, month: number, year: number) => void
   dateEnd: ActiveDay | null
+  dateBegin: ActiveDay | null
   actualMonth: Date
 }
 
 export const Cell = (props: Props) => {
+ 
   const handleClick = () => {
     const { setActiveDate } = props
     setActiveDate(props.day, props.month, props.year)
-    activeDate()
+    dateEndValidator()
   }
 
-  const activeDate = () => {
-    const { dateEnd } = props
+  const validator = (date: ActiveDay | null) => {
 
-    if (
-      dateEnd?.day === props.day &&
-      dateEnd.month === props.month &&
-      dateEnd.year === props.year
+    if (  
+      date?.day === props.day &&
+      date.month === props.month &&
+      date.year === props.year
     ) {
       return true
     }
     return false
+  }
+
+  const dateBeginValidator = () => {
+    const { dateBegin } = props
+    return validator(dateBegin)
+  }
+  const dateEndValidator = () => {
+    const { dateEnd } = props
+    return validator(dateEnd)
   }
 
   return (
@@ -32,7 +42,8 @@ export const Cell = (props: Props) => {
       class={[
         style['calendar-t-body__table-data'],
         props.today ? style['calendar-t-body__table-data--today'] : '',
-        activeDate() ? style['calendar-t-body__table-data--active'] : ''
+        dateEndValidator() ? style['calendar-t-body__table-data--active'] : '',
+        dateBeginValidator() ? style['calendar-t-body__table-data--active'] : ''
       ].join(' ')}
     >
       {' '}

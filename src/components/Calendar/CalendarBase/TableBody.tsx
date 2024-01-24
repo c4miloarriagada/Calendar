@@ -8,6 +8,7 @@ interface Props {
   currentMonth: Date[]
   setActiveDate: (day: number, month: number, year: number) => void
   activeDay: ActiveDay | null
+  dateBegin?: ActiveDay | null
 }
 
 export const TableBody = (props: Props) => {
@@ -20,6 +21,7 @@ export const TableBody = (props: Props) => {
               {(day) => (
                 <Cell
                   {...day}
+                  dateBegin={props.dateBegin ?? null}
                   setActiveDate={props.setActiveDate}
                   actualMonth={props.currentMonth[0]}
                   dateEnd={props.activeDay ?? null}

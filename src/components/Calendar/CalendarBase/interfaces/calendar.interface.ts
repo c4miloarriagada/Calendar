@@ -44,8 +44,9 @@ export interface Day {
   disabled: boolean
 }
 
-type ActiveDate = {
+export type ActiveDate = {
   dateEnd?: ActiveDay
+  dateBegin?: ActiveDay
 }
 
 export type ActiveDay = {

@@ -5,21 +5,25 @@ import { HandlerRange } from './HandlerRange'
 import style from '../Calendar.module.css'
 
 export const CalendarRange = () => {
-  const [state, {  setActiveDate }] = useCalendarContext()
+  const [state, { setActiveDate }] = useCalendarContext()
   return (
     <div class={style['calendar-container-range']}>
-      <HandlerRange nextMonth={state.nextMonth?.nextMonth!} actualMonth={state?.actualMonth?.actualMonth!} />
+      <HandlerRange
+        nextMonth={state.nextMonth?.nextMonth!}
+        actualMonth={state?.actualMonth?.actualMonth!}
+      />
       <div class={style['calendar-container-range__range_wrapper']}>
         <div class={style['calendar-container-range__container']}>
           <div class={style['calendar-container__table-container']}>
             <table class={style['calendar-container__table']} role='grid'>
               <TableHeader daysOfWeek={state?.daysOfWeek!} />
-                  <TableBody
-                    currentMonth={state.actualMonth?.actualMonth!}
-                    setActiveDate={setActiveDate}
-                    activeDay={state.activeDate?.activeDate.dateEnd ?? null}
-                    actualMonth={state.parsedActualMonth?.parsedActualMonth!}
-                  />
+              <TableBody
+                dateBegin={state.activeDate?.activeDate.dateBegin ?? null}
+                currentMonth={state.actualMonth?.actualMonth!}
+                setActiveDate={setActiveDate}
+                activeDay={state.activeDate?.activeDate.dateEnd ?? null}
+                actualMonth={state.parsedActualMonth?.parsedActualMonth!}
+              />
             </table>
           </div>
         </div>
@@ -28,6 +32,7 @@ export const CalendarRange = () => {
             <table class={style['calendar-container__table']} role='grid'>
               <TableHeader daysOfWeek={state?.daysOfWeek!} />
               <TableBody
+                dateBegin={state.activeDate?.activeDate.dateBegin ?? null}
                 currentMonth={state.nextMonth?.nextMonth!}
                 setActiveDate={setActiveDate}
                 activeDay={state.activeDate?.activeDate.dateEnd ?? null}
