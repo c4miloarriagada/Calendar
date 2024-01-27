@@ -53,7 +53,8 @@ export const CalendarProvider = (props: ParentProps<Calendar>) => {
     nextMonth: initialState.nextMonth,
     prevMonth: initialState.prevMonth,
     yearHandler: initialState.yearHandler,
-    type: props.type
+    type: props.type,
+    rangeMode: props.type === 'range' ? 'dateEnd' : undefined
   })
   const context: [Calendar, Actions] = [
     state,
@@ -69,16 +70,16 @@ export const CalendarProvider = (props: ParentProps<Calendar>) => {
         const prevMonth = new Date(prevYear!, monthValidated, 1)
 
         setState('yearHandler', () => ({
-          ['yearHandler']: state.yearHandler!.yearHandler + 1
+          yearHandler: state.yearHandler!.yearHandler + 1
         }))
         setState('actualMonth', () => ({
-          ['actualMonth']: daysOfTheMonthParse(actualMonth, month!)
+          actualMonth: daysOfTheMonthParse(actualMonth, month!)
         }))
         setState('nextMonth', () => ({
-          ['nextMonth']: daysOfTheMonthParse(nextMonth, monthNextValidated)
+          nextMonth: daysOfTheMonthParse(nextMonth, monthNextValidated)
         }))
         setState('prevMonth', () => ({
-          ['prevMonth']: daysOfTheMonthParse(prevMonth, monthValidated)
+          prevMonth: daysOfTheMonthParse(prevMonth, monthValidated)
         }))
       },
       setCalendarMonth(type: CalendarType): void {
@@ -92,7 +93,7 @@ export const CalendarProvider = (props: ParentProps<Calendar>) => {
         const typeHandler: TypeHandler = {
           single: () => {
             setState('parsedActualMonth', () => ({
-              ['parsedActualMonth']: calendarBase
+              parsedActualMonth: calendarBase
             }))
           },
           range: () => {
@@ -121,37 +122,49 @@ export const CalendarProvider = (props: ParentProps<Calendar>) => {
             })
 
             setState('parsedActualMonth', () => ({
-              ['parsedActualMonth']: calendarBase
+              parsedActualMonth: calendarBase
             }))
             setState('rangeNextDays', nextMonth)
           },
           form: () => {
             setState('parsedActualMonth', () => ({
-              ['parsedActualMonth']: formParser(calendarBase, date)
+              parsedActualMonth: formParser(calendarBase, date)
             }))
           }
         }
         typeHandler[type]()
       },
       setActiveDate(day: number, month: number, year: number): void {
-        if (
-          state.activeDate?.activeDate.dateEnd &&
-          Object.values(state.activeDate?.activeDate.dateEnd).length > 0
-        ) {
+        const dateEnd = () => {
           setState('activeDate', () => ({
             ['activeDate']: {
-              ['dateEnd']: state.activeDate?.activeDate.dateEnd,
-              ['dateBegin']: { day, month, year }
+              ...state.activeDate?.activeDate,
+              dateEnd: { day, month, year }
             }
           }))
-          
-          return
         }
-        setState('activeDate', () => ({
-          ['activeDate']: {
-            dateEnd: { day, month, year }
-          }
-        }))
+        const dateBegin = () => {
+          setState('activeDate', () => ({
+            ['activeDate']: {
+              ...state.activeDate?.activeDate,
+              dateBegin: { day, month, year }
+            }
+          }))
+        }
+        switch (state.rangeMode) {
+          case undefined:
+            dateEnd()
+            break
+          case 'dateBegin':
+            dateBegin()
+            setState('rangeMode', 'dateEnd')
+            break
+          case 'dateEnd':
+            dateEnd()
+            setState('rangeMode', 'dateBegin')
+            break
+          default:
+        }
       }
     }
   ]

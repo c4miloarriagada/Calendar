@@ -6,6 +6,7 @@
   --shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
     rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
   --border-radius: 50px;
+  --light-grey: hsl(0, 0%, 94%);
 }
 
 /* animatiosn */
@@ -90,7 +91,7 @@
 }
 
 .calendar-t-body__table-data--today {
-  background-color: hsl(0, 0%, 94%);
+  background-color: var(--light-grey);
   width: 1.8rem;
   height: 1.8rem;
   border-radius: var(--border-radius);
@@ -146,6 +147,11 @@
 
 .calendar-t-body__table-data > button[aria-disabled='true'] {
   color: var(--text-muted);
+  background-color: transparent;
+}
+.calendar-t-body__table-data > button[aria-disabled='true']:hover {
+  color: var(--text-muted);
+  background-color: transparent;
 }
 
 .calendar-t-body__table-data--active > button {
@@ -159,6 +165,21 @@
 .calendar-t-body__table-data--active > button:hover {
   background-color: var(--black);
 }
+
+/* .calendar-t-body__table-data--active > button:hover::before {
+  content: 'begin';
+  width: 3rem;
+  height: 1rem;
+  position: absolute;
+  top: -15px;
+  left: -9px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1px;
+  border-radius: var(--border-radius);
+  background-color: var(--black);
+} */
 
 .calendar-container-range {
   display: flex;
@@ -194,4 +215,9 @@
   width: 40%;
   align-items: center;
   height: 2.9rem;
+}
+
+.calendar-t-body__table-data--range {
+  background-color: var(--light-grey);
+  border-radius: 0%;
 }

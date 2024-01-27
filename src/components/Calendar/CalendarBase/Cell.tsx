@@ -9,7 +9,6 @@ interface Props extends Day {
 }
 
 export const Cell = (props: Props) => {
- 
   const handleClick = () => {
     const { setActiveDate } = props
     setActiveDate(props.day, props.month, props.year)
@@ -17,8 +16,7 @@ export const Cell = (props: Props) => {
   }
 
   const validator = (date: ActiveDay | null) => {
-
-    if (  
+    if (
       date?.day === props.day &&
       date.month === props.month &&
       date.year === props.year
@@ -37,16 +35,32 @@ export const Cell = (props: Props) => {
     return validator(dateEnd)
   }
 
+  const rangeValidator = () => {
+    const { dateBegin, dateEnd } = props
+    const begin = new Date(dateBegin?.year!, dateBegin?.month!, dateBegin?.day)
+    const end = new Date(dateEnd?.year!, dateEnd?.month!, dateEnd?.day)
+    const actualDate = new Date(props.year, props.month, props.day)
+
+    if (
+      actualDate.getTime() >= begin.getTime() &&
+      actualDate.getTime() <= end.getTime()
+    ) {
+      return true 
+    } else {
+      return false
+    }
+  }
+
   return (
     <td
       class={[
         style['calendar-t-body__table-data'],
         props.today ? style['calendar-t-body__table-data--today'] : '',
         dateEndValidator() ? style['calendar-t-body__table-data--active'] : '',
-        dateBeginValidator() ? style['calendar-t-body__table-data--active'] : ''
+        dateBeginValidator() ? style['calendar-t-body__table-data--active'] : '',
+        rangeValidator() ? style["calendar-t-body__table-data--range"] : ''
       ].join(' ')}
     >
-      {' '}
       <button
         role='gridcell'
         aria-disabled={!props.activeMonth}
