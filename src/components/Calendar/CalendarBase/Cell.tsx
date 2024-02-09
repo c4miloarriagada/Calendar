@@ -9,6 +9,8 @@ interface Props extends Day {
 }
 
 export const Cell = (props: Props) => {
+  const currentDate = new Date(props.year, props.month, props.day)
+
   const handleClick = () => {
     const { setActiveDate } = props
     setActiveDate(props.day, props.month, props.year)
@@ -17,9 +19,8 @@ export const Cell = (props: Props) => {
 
   const validator = (date: ActiveDay | null) => {
     if (
-      date?.day === props.day &&
-      date.month === props.month &&
-      date.year === props.year
+      currentDate.getTime() ===
+      new Date(date?.year!, date?.month!, date?.day!).getTime()
     ) {
       return true
     }
@@ -45,25 +46,30 @@ export const Cell = (props: Props) => {
       actualDate.getTime() >= begin.getTime() &&
       actualDate.getTime() <= end.getTime()
     ) {
-      return true 
+      return true
     } else {
       return false
     }
   }
-
   return (
     <td
+      role='presentation'
       class={[
         style['calendar-t-body__table-data'],
-        props.today ? style['calendar-t-body__table-data--today'] : '',
+
         dateEndValidator() ? style['calendar-t-body__table-data--active'] : '',
-        dateBeginValidator() ? style['calendar-t-body__table-data--active'] : '',
-        rangeValidator() ? style["calendar-t-body__table-data--range"] : ''
+        dateBeginValidator()
+          ? style['calendar-t-body__table-data--active']
+          : '',
+        rangeValidator() ? style['calendar-t-body__table-data--range'] : '',
+        !props.activeMonth ? style['calendar-t-body__table-data--active'] : ''
       ].join(' ')}
     >
       <button
         role='gridcell'
+        class={props.today ? style['calendar-t-body__table-data--today'] : ''}
         aria-disabled={!props.activeMonth}
+        aria-selected={rangeValidator()}
         disabled={props.disabled}
         onClick={handleClick}
       >
