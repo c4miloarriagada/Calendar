@@ -56,10 +56,17 @@ export const Cell = (props: Props) => {
       role='presentation'
       class={[
         style['calendar-t-body__table-data'],
-
-        dateEndValidator() ? style['calendar-t-body__table-data--active'] : '',
+        dateEndValidator()
+          ? [
+              style['calendar-t-body__table-data--active'],
+              style['calendar-t-body__table-data--end']
+            ].join(' ')
+          : '',
         dateBeginValidator()
-          ? style['calendar-t-body__table-data--active']
+          ? [
+              style['calendar-t-body__table-data--active'],
+              style['calendar-t-body__table-data--begin']
+            ].join(' ')
           : '',
         rangeValidator() ? style['calendar-t-body__table-data--range'] : '',
         !props.activeMonth ? style['calendar-t-body__table-data--active'] : ''

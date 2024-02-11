@@ -1,5 +1,5 @@
 :root {
-  --text-muted: #7b7b80f5;
+  --text-muted: hsl(240, 2%, 49%, 0.3);
   --border-color: #b8c0c5;
   --white: #ffffff;
   --black: hsl(0, 5%, 9%);
@@ -78,11 +78,12 @@
   all: unset;
   display: flex;
   align-items: center;
-
   border-radius: 0.3rem;
   border: 1px solid var(--border-color);
   opacity: 0.6;
   cursor: pointer;
+  height: 1.4rem;
+  width: 1.4rem;
   display: flex;
   justify-content: center;
 }
@@ -124,32 +125,25 @@
   animation: fadeIn ease 300ms;
 }
 
-tr {
-  padding-top: 8px;
+.calendar-t-body__table-data:first-child > button {
+  border-radius: 4px 0 0 4px !important;
 }
 
-td {
-  /* padding-top: 8px; */
-}
-
-td:first-child > button {
-  border-radius: 4px 0 0 4px;
-}
-
-td:last-child > button {
-  border-radius: 0 4px 4px 0;
+.calendar-t-body__table-data:last-child > button {
+  border-radius: 0 4px 4px 0 !important;
 }
 
 .calendar-t-body__table-data {
-  padding-top: 8px;
   cursor: pointer;
   text-align: center;
+  width: 2rem;
+  height: 2rem;
 }
 
 .calendar-t-body__table-data > button:hover {
-  background-color: hsl(0, 0%, 94%);
-  height: 100%;
-  width: 100%;
+  background-color: var(--light-grey);
+  border-radius: 4px !important;
+  height: 2rem;
 }
 
 .calendar-t-body__table-data > button {
@@ -161,31 +155,24 @@ td:last-child > button {
 
 .calendar-t-body__table-data > button[aria-disabled='true'] {
   color: var(--text-muted);
+  height: 100%;
+  width: 100%;
   background-color: transparent;
 }
 .calendar-t-body__table-data > button[aria-disabled='true']:hover {
   color: var(--text-muted);
+  height: 100%;
+  width: 100%;
   background-color: transparent;
+}
+
+.calendar-t-body__table-data--active {
+  border-radius: 4px !important;
 }
 
 .calendar-t-body__table-data--active > button:hover {
   background-color: var(--black);
 }
-
-/* .calendar-t-body__table-data--active > button:hover::before {
-  content: 'begin';
-  width: 3rem;
-  height: 1rem;
-  position: absolute;
-  top: -15px;
-  left: -9px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1px;
-  border-radius: var(--border-radius);
-  background-color: var(--black);
-} */
 
 .calendar-container-range {
   display: flex;
@@ -229,12 +216,38 @@ td:last-child > button {
   height: 2rem;
 }
 
+.calendar-t-body__table-data--range > button[aria-disabled='true'] {
+  background-color: hsl(0, 0%, 94%, 0.5);
+  width: 100%;
+  height: 2rem;
+}
+.calendar-t-body__table-data--range > button[aria-disabled='true']:hover {
+  background-color: var(--light-grey);
+  width: 100%;
+  height: 2rem;
+  border: 0;
+  border-radius: 4px;
+}
+
 .calendar-t-body__table-data--active > button {
   color: var(--white);
-  width: 2rem;
+  width: 100%;
   height: 2rem;
   background-color: var(--black);
   animation: fadeIn ease 300ms;
   border-radius: 4px;
   border: none;
+}
+
+.calendar-t-body__table-data--active > button[aria-disabled='true'] {
+  border-radius: 0;
+  height: 2rem;
+}
+
+.calendar-t-body__table-data--begin > button {
+  border-radius: 4px 0 0 4px;
+}
+
+.calendar-t-body__table-data--end > button {
+  border-radius: 0 4px 4px 0;
 }
