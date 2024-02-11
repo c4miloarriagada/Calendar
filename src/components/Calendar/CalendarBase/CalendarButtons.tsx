@@ -9,8 +9,6 @@ interface Props {
   iconDirection: Direction
 }
 
-
-
 export const CalendarButtons = (props: Props) => {
   const [state, { getDaysOfMonth }] = useCalendarContext()
 
@@ -55,7 +53,7 @@ export const CalendarButtons = (props: Props) => {
           onclick={() => handleClick(props.iconDirection)}
           class={style['calendar-container__button']}
         >
-          <HiOutlineChevronLeft color='#858f96' size={15} />
+          <HiOutlineChevronLeft color='#858f96' size={17} />
         </button>
       </Match>
       <Match when={props.iconDirection === 'right'}>
@@ -63,7 +61,7 @@ export const CalendarButtons = (props: Props) => {
           onclick={() => handleClick(props.iconDirection)}
           class={style['calendar-container__button']}
         >
-          <HiOutlineChevronRight color='#858f96' size={15} />
+          <HiOutlineChevronRight color='#858f96' size={17} />
         </button>
       </Match>
     </Switch>

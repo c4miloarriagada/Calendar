@@ -9,7 +9,7 @@
   --light-grey: hsl(0, 0%, 94%);
 }
 
-/* animatiosn */
+/* animations */
 
 .transition-colors {
   transition-property: color, background-color, border-color,
@@ -49,7 +49,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: 2rem;
+  height: 4rem;
 }
 
 .calendar-container__buttons > span {
@@ -110,10 +110,6 @@
   width: 100%;
 }
 
-.calendar-container__table > td {
-  height: 2px;
-}
-
 .calendar-t-head {
   color: var(--text-muted);
 }
@@ -128,7 +124,24 @@
   animation: fadeIn ease 300ms;
 }
 
+tr {
+  padding-top: 8px;
+}
+
+td {
+  /* padding-top: 8px; */
+}
+
+td:first-child > button {
+  border-radius: 4px 0 0 4px;
+}
+
+td:last-child > button {
+  border-radius: 0 4px 4px 0;
+}
+
 .calendar-t-body__table-data {
+  padding-top: 8px;
   cursor: pointer;
   text-align: center;
 }
@@ -141,7 +154,8 @@
 
 .calendar-t-body__table-data > button {
   all: unset;
-
+  height: 100%;
+  width: 100%;
   text-align: center;
 }
 
@@ -152,16 +166,6 @@
 .calendar-t-body__table-data > button[aria-disabled='true']:hover {
   color: var(--text-muted);
   background-color: transparent;
-}
-
-.calendar-t-body__table-data--active > button {
-  color: var(--white);
-  width: 100%;
-  height: 100%;
-  background-color: var(--black);
-  animation: fadeIn ease 300ms;
-  border-radius: 4px;
-  border: none;
 }
 
 .calendar-t-body__table-data--active > button:hover {
@@ -195,7 +199,7 @@
 }
 
 .calendar-container-range__container {
-  height: 17rem;
+  height: 20rem;
   width: 15rem;
   background-color: var(--white);
   padding: 6px;
@@ -219,7 +223,18 @@
   height: 2.9rem;
 }
 
-.calendar-t-body__table-data--range {
+.calendar-t-body__table-data--range > button {
   background-color: var(--light-grey);
-  border-radius: 0%;
+  width: 100%;
+  height: 2rem;
+}
+
+.calendar-t-body__table-data--active > button {
+  color: var(--white);
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--black);
+  animation: fadeIn ease 300ms;
+  border-radius: 4px;
+  border: none;
 }
