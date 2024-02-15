@@ -88,11 +88,6 @@
   justify-content: center;
 }
 
-.calendar-t-body__table-data--today {
-  background-color: var(--light-grey);
-  border-radius: var(--border-radius);
-}
-
 .calendar-container__button:hover {
   opacity: 100;
   background-color: hsla(0, 0%, 90%, 0.55);
@@ -138,6 +133,11 @@
   text-align: center;
   width: 2rem;
   height: 2rem;
+}
+
+.calendar-t-body__table-data--today {
+  height: 2rem !important;
+  background-color: var(--light-grey) !important;
 }
 
 .calendar-t-body__table-data > button:hover {

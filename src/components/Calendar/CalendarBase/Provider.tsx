@@ -8,7 +8,8 @@ import type {
   Actions,
   Calendar,
   TypeHandler,
-  CalendarType
+  CalendarType,
+  ActiveDate
 } from './interfaces/calendar.interface'
 import {
   dateNexValidator,
@@ -53,8 +54,7 @@ export const CalendarProvider = (props: ParentProps<Calendar>) => {
     nextMonth: initialState.nextMonth,
     prevMonth: initialState.prevMonth,
     yearHandler: initialState.yearHandler,
-    type: props.type,
-    rangeMode: props.type === 'range' ? 'dateEnd' : undefined
+    type: props.type
   })
   const context: [Calendar, Actions] = [
     state,
@@ -135,35 +135,85 @@ export const CalendarProvider = (props: ParentProps<Calendar>) => {
         typeHandler[type]()
       },
       setActiveDate(day: number, month: number, year: number): void {
-        const dateEnd = () => {
+        const dateHandler = (key: keyof ActiveDate | undefined) => {
+          if (!key) {
+            setState('activeDate', () => ({
+              ['activeDate']: {}
+            }))
+            return
+          }
           setState('activeDate', () => ({
             ['activeDate']: {
               ...state.activeDate?.activeDate,
-              dateEnd: { day, month, year }
+              [key]: { day, month, year }
             }
           }))
         }
-        const dateBegin = () => {
-          setState('activeDate', () => ({
-            ['activeDate']: {
-              ...state.activeDate?.activeDate,
-              dateBegin: { day, month, year }
-            }
-          }))
+
+        const rangeModeHandler = (
+          day: number,
+          month: number,
+          year: number
+        ): keyof ActiveDate | undefined => {
+          const endDate = new Date(
+            state.activeDate?.activeDate.dateEnd?.year!,
+            state.activeDate?.activeDate.dateEnd?.month!,
+            state.activeDate?.activeDate.dateEnd?.day!
+          )
+
+          const beginDate = new Date(
+            state.activeDate?.activeDate.dateBegin?.year!,
+            state.activeDate?.activeDate.dateBegin?.month!,
+            state.activeDate?.activeDate.dateBegin?.day!
+          )
+
+          const dateToCompare = new Date(year, month, day)
+
+          if (
+            dateToCompare.getTime() === endDate.getTime() ||
+            dateToCompare.getTime() === beginDate.getTime()
+          ) {
+            return undefined
+          }
+          if (dateToCompare > endDate && isNaN(beginDate.getDate())) {
+            setState('activeDate', () => ({
+              ['activeDate']: {
+                ...state.activeDate?.activeDate,
+                ['dateBegin']: state.activeDate?.activeDate['dateEnd']
+              }
+            }))
+            return 'dateEnd'
+          }
+
+          if (!isNaN(endDate.getDate()) && isNaN(beginDate.getDate())) {
+            return 'dateBegin'
+          }
+          if (isNaN(endDate.getDate())) {
+            return 'dateEnd'
+          }
+
+          if (
+            (beginDate < dateToCompare && dateToCompare < endDate) ||
+            dateToCompare > endDate
+          ) {
+            return 'dateEnd'
+          }
+
+          if (dateToCompare < endDate) {
+            return 'dateBegin'
+          }
+
+          return 'dateBegin'
         }
-        switch (state.rangeMode) {
-          case undefined:
-            dateEnd()
-            break
-          case 'dateBegin':
-            dateBegin()
-            setState('rangeMode', 'dateEnd')
-            break
-          case 'dateEnd':
-            dateEnd()
-            setState('rangeMode', 'dateBegin')
+
+        switch (state.type) {
+          case 'range':
+            const rangeHandler = rangeModeHandler(day, month, year)
+            dateHandler(rangeHandler)
+
             break
           default:
+            dateHandler('dateEnd')
         }
       }
     }

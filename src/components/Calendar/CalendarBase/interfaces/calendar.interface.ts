@@ -10,7 +10,6 @@ export interface Calendar {
   rangeNextDays?: Day[][]
   rangeNextMonth?: Date
   type: CalendarType | undefined
-  rangeMode?: 'dateEnd' | 'dateBegin' | undefined
 }
 
 export type Months = {
