@@ -1,4 +1,7 @@
-export interface Calendar {
+import type { Accessor, Setter } from 'solid-js'
+import { Date } from '../..'
+
+export type Calendar<T extends CalendarType> = {
   today?: Date
   actualMonth?: { actualMonth: Date[] }
   daysOfWeek?: DaysOfWeek
@@ -9,8 +12,23 @@ export interface Calendar {
   activeDate?: { activeDate: ActiveDate }
   rangeNextDays?: Day[][]
   rangeNextMonth?: Date
-  type: CalendarType | undefined
-}
+  type: T
+} & CalendarProps<T>
+
+type CalendarProps<T extends CalendarType> = T extends 'single'
+  ? {
+      singleProp?: any
+    }
+  : T extends 'range'
+    ? {
+        date: Accessor<Date>
+        setDate: Setter<Date>
+      }
+    : T extends 'form'
+      ? {
+          formProp?: any
+        }
+      : never
 
 export type Months = {
   prev: number

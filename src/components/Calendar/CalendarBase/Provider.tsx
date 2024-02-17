@@ -18,11 +18,11 @@ import {
 
 const date = new Date()
 
-const initialState: Calendar = {
+const initialState: Calendar<CalendarType> = {
   today: date,
-  actualMonth: { actualMonth: [] },
-  prevMonth: { prevMonth: [] },
-  nextMonth: { nextMonth: [] },
+  actualMonth: { actualMonth: [] as Date[] },
+  prevMonth: { prevMonth: [] as Date[] },
+  nextMonth: { nextMonth: [] as Date[] },
   daysOfWeek: {
     0: 'Sunday',
     1: 'Monday',
@@ -34,10 +34,10 @@ const initialState: Calendar = {
   },
   parsedActualMonth: { parsedActualMonth: [] },
   yearHandler: { yearHandler: 0 },
-  type: undefined
+  type: 'range'
 }
 
-const CalendarContext = createContext<[Calendar, Actions]>([
+const CalendarContext = createContext<[Calendar<CalendarType>, Actions]>([
   initialState,
   {
     getDaysOfMonth: () => {},
@@ -46,8 +46,10 @@ const CalendarContext = createContext<[Calendar, Actions]>([
   }
 ])
 
-export const CalendarProvider = (props: ParentProps<Calendar>) => {
-  const [state, setState] = createStore<Calendar>({
+export const CalendarProvider = <T extends CalendarType>(
+  props: ParentProps<Calendar<T>>
+) => {
+  const [state, setState] = createStore<Calendar<CalendarType>>({
     today: initialState.today,
     actualMonth: initialState.actualMonth,
     daysOfWeek: initialState.daysOfWeek,
@@ -56,7 +58,7 @@ export const CalendarProvider = (props: ParentProps<Calendar>) => {
     yearHandler: initialState.yearHandler,
     type: props.type
   })
-  const context: [Calendar, Actions] = [
+  const context: [Calendar<CalendarType>, Actions] = [
     state,
     {
       getDaysOfMonth(
