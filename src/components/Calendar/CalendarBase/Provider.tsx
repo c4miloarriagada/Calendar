@@ -1,9 +1,12 @@
-import { createContext, onMount, useContext } from 'solid-js'
+import { createContext, onMount, useContext, type ParentProps } from 'solid-js'
 import { createStore } from 'solid-js/store'
 import { daysOfTheMonthParse } from '../../../helpers/daysOfTheMonthParse'
 import { dayParser } from '../../../helpers/dayParser'
 import { formParser } from '../../../helpers/formParser'
-import type { ParentProps } from 'solid-js'
+import {
+  dateNexValidator,
+  datePrevValidator
+} from '../../../helpers/dateValidators'
 import type {
   Actions,
   Calendar,
@@ -11,18 +14,12 @@ import type {
   CalendarType,
   ActiveDate
 } from './interfaces/calendar.interface'
-import {
-  dateNexValidator,
-  datePrevValidator
-} from '../../../helpers/dateValidators'
-
-const date = new Date()
 
 const initialState: Calendar<CalendarType> = {
-  today: date,
-  actualMonth: { actualMonth: [] as Date[] },
-  prevMonth: { prevMonth: [] as Date[] },
-  nextMonth: { nextMonth: [] as Date[] },
+  today: new Date(),
+  actualMonth: { actualMonth: [] },
+  prevMonth: { prevMonth: [] },
+  nextMonth: { nextMonth: [] },
   daysOfWeek: {
     0: 'Sunday',
     1: 'Monday',
@@ -34,7 +31,7 @@ const initialState: Calendar<CalendarType> = {
   },
   parsedActualMonth: { parsedActualMonth: [] },
   yearHandler: { yearHandler: 0 },
-  type: 'range'
+  type: 'single'
 }
 
 const CalendarContext = createContext<[Calendar<CalendarType>, Actions]>([
@@ -58,6 +55,7 @@ export const CalendarProvider = <T extends CalendarType>(
     yearHandler: initialState.yearHandler,
     type: props.type
   })
+
   const context: [Calendar<CalendarType>, Actions] = [
     state,
     {
@@ -130,7 +128,7 @@ export const CalendarProvider = <T extends CalendarType>(
           },
           form: () => {
             setState('parsedActualMonth', () => ({
-              parsedActualMonth: formParser(calendarBase, date)
+              parsedActualMonth: formParser(calendarBase, initialState.today!)
             }))
           }
         }
@@ -150,6 +148,14 @@ export const CalendarProvider = <T extends CalendarType>(
               [key]: { day, month, year }
             }
           }))
+
+          if (props.type === 'range') {
+            const dateKey = key === 'dateBegin' ? 'dateTo' : 'dateFrom'
+            props.setDates({
+              ...props.dates(),
+              [dateKey]: new Date(year, month, day)
+            })
+          }
         }
 
         const rangeModeHandler = (
