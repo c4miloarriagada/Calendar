@@ -10,14 +10,13 @@ export const Calendar = () => {
     setCalendarMonth(state.type!)
   })
 
-
   return (
     <>
       <Show when={state.type !== 'range'}>
-       <CalendarBase/>
+        <CalendarBase />
       </Show>
       <Show when={state.type === 'range'}>
-        <CalendarRange/>
+        <CalendarRange />
       </Show>
     </>
   )

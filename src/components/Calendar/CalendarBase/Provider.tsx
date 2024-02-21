@@ -1,4 +1,11 @@
-import { createContext, onMount, useContext, type ParentProps } from 'solid-js'
+import {
+  createContext,
+  onMount,
+  useContext,
+  type ParentProps,
+  Accessor,
+  Setter
+} from 'solid-js'
 import { createStore } from 'solid-js/store'
 import { daysOfTheMonthParse } from '../../../helpers/daysOfTheMonthParse'
 import { dayParser } from '../../../helpers/dayParser'
@@ -12,7 +19,8 @@ import type {
   Calendar,
   TypeHandler,
   CalendarType,
-  ActiveDate
+  ActiveDate,
+  Dates
 } from './interfaces/calendar.interface'
 
 const initialState: Calendar<CalendarType> = {
@@ -44,7 +52,16 @@ const CalendarContext = createContext<[Calendar<CalendarType>, Actions]>([
 ])
 
 export const CalendarProvider = <T extends CalendarType>(
-  props: ParentProps<Calendar<T>>
+  props: ParentProps<Calendar<T>> &
+    (T extends 'range'
+      ? {
+          dates: Accessor<Dates>
+          setDates: Setter<Dates>
+        }
+      : {
+          dates: Accessor<Dates>
+          setDates: Setter<Dates>
+        })
 ) => {
   const [state, setState] = createStore<Calendar<CalendarType>>({
     today: initialState.today,

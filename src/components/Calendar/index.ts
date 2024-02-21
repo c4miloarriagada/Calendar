@@ -1,2 +1,2 @@
 export * from './CalendarBase/Calendar'
-export * from './CalendarWrapper'
+export { CalendarWrapper } from './CalendarWrapper'

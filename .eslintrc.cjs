@@ -1,4 +1,5 @@
 module.exports = {
+  root: true,
   env: {
     browser: true,
     es2021: true
@@ -24,6 +25,10 @@ module.exports = {
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: true,
+    tsconfigRootDir: __dirname,
     ecmaFeatures: {
       jsx: true
     },
@@ -35,5 +40,6 @@ module.exports = {
   rules: {
     'react/react-in-jsx-scope': 'off'
   },
-  format: "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
-};
+  format:
+    "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+}
