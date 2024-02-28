@@ -20,7 +20,6 @@ export default defineConfig({
       formats: ['es', 'cjs'],
       fileName: (format) => `index.${format === 'cjs' ? 'cjs' : 'es.js'}`
     },
-
     minify: true,
     cssMinify: true
   }
