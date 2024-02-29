@@ -1,3 +1,5 @@
+import { CalendarWrapper } from '.'
+
 function App() {
   return (
     <main
@@ -8,7 +10,9 @@ function App() {
         'justify-content': 'center',
         'align-items': 'center'
       }}
-    ></main>
+    >
+      <CalendarWrapper type='form' />
+    </main>
   )
 }
 

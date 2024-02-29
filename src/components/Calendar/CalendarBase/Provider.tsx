@@ -20,7 +20,8 @@ import type {
   TypeHandler,
   CalendarType,
   ActiveDate,
-  Dates
+  Dates,
+  SingleDate
 } from './interfaces/calendar.interface'
 
 const initialState: Calendar<CalendarType> = {
@@ -58,10 +59,17 @@ export const CalendarProvider = <T extends CalendarType>(
           dates: Accessor<Dates>
           setDates: Setter<Dates>
         }
-      : {
-          dates: Accessor<Dates>
-          setDates: Setter<Dates>
-        })
+      : T extends 'form'
+        ? {
+            date: Accessor<SingleDate>
+            setDate: Setter<SingleDate>
+          }
+        : T extends 'single'
+          ? {
+              date: Accessor<SingleDate>
+              setDate: Setter<SingleDate>
+            }
+          : never)
 ) => {
   const [state, setState] = createStore<Calendar<CalendarType>>({
     today: initialState.today,
@@ -166,6 +174,11 @@ export const CalendarProvider = <T extends CalendarType>(
             }
           }))
 
+          if (props.type === 'single' || props.type === 'form') {
+            props.setDate({
+              date: new Date(year, month, day)
+            })
+          }
           if (props.type === 'range') {
             const dateKey = key === 'dateBegin' ? 'dateTo' : 'dateFrom'
             props.setDates({

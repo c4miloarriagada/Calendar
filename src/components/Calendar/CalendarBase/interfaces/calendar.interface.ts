@@ -17,7 +17,8 @@ export type Calendar<T extends CalendarType> = {
 
 type CalendarProps<T extends CalendarType> = T extends 'single'
   ? {
-      singleProp?: any
+      date: Accessor<SingleDate>
+      setDate: Setter<SingleDate>
     }
   : T extends 'range'
     ? {
@@ -26,7 +27,8 @@ type CalendarProps<T extends CalendarType> = T extends 'single'
       }
     : T extends 'form'
       ? {
-          formProp?: any
+          date: Accessor<SingleDate>
+          setDate: Setter<SingleDate>
         }
       : never
 
@@ -85,6 +87,12 @@ export interface RangeMode extends CalendarWrapper {
   dates: Accessor<Dates>
   setDates: Setter<Dates>
 }
+
+export type SingleDate =
+  | {
+      date: Date
+    }
+  | {}
 
 export type Dates =
   | {

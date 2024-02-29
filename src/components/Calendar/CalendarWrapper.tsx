@@ -10,12 +10,9 @@ export interface CalendarWrapper {
 }
 
 export const CalendarWrapper = ({ type, dates, setDates }: RangeMode) => {
-  const renderCalendar = () => {
-    return (
-      <CalendarProvider dates={dates} setDates={setDates} type={type}>
-        <Calendar />
-      </CalendarProvider>
-    )
-  }
-  return <>{renderCalendar()}</>
+  return (
+    <CalendarProvider dates={dates} setDates={setDates} type={type}>
+      <Calendar />
+    </CalendarProvider>
+  )
 }

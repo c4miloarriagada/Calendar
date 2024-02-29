@@ -11,13 +11,13 @@ export const Handler = (props: Props) => {
       <span>
         <CalendarButtons iconDirection='left' />{' '}
       </span>
-      <span>
+      <div>
         <p class={style['calendar-container__title']}>
           {`${props.actualMonth[0]
             ?.toLocaleString('default', { month: 'long' })
             .split(' ')[0]}    ${props.actualMonth[0]?.getFullYear()}`}
         </p>
-      </span>
+      </div>
       <span>
         <CalendarButtons iconDirection='right' />{' '}
       </span>
