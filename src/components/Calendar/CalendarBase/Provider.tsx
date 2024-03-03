@@ -175,7 +175,7 @@ export const CalendarProvider = <T extends CalendarType>(
           }))
 
           if (props.type === 'single' || props.type === 'form') {
-            props.setDate({
+            props.setDates({
               date: new Date(year, month, day)
             })
           }

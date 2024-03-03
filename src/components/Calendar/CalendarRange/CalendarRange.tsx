@@ -18,6 +18,7 @@ export const CalendarRange = () => {
             <table class={style['calendar-container__table']} role='grid'>
               <TableHeader daysOfWeek={state?.daysOfWeek!} />
               <TableBody
+                type={state.type}
                 dateBegin={state.activeDate?.activeDate.dateBegin ?? null}
                 currentMonth={state.actualMonth?.actualMonth!}
                 setActiveDate={setActiveDate}
@@ -32,6 +33,7 @@ export const CalendarRange = () => {
             <table class={style['calendar-container__table']} role='grid'>
               <TableHeader daysOfWeek={state?.daysOfWeek!} />
               <TableBody
+                type={state.type}
                 dateBegin={state.activeDate?.activeDate.dateBegin ?? null}
                 currentMonth={state.nextMonth?.nextMonth!}
                 setActiveDate={setActiveDate}

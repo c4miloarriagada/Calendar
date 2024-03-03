@@ -14,6 +14,7 @@ export const CalendarBase = () => {
         <table class={style['calendar-container__table']} role='grid'>
           <TableHeader daysOfWeek={state?.daysOfWeek!} />
           <TableBody
+            type={state.type}
             currentMonth={state.actualMonth?.actualMonth!}
             setActiveDate={setActiveDate}
             activeDay={state.activeDate?.activeDate.dateEnd ?? null}

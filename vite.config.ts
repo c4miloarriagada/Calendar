@@ -6,6 +6,7 @@ import solid from 'vite-plugin-solid'
 export default defineConfig({
   plugins: [solid(), dts({ include: ['src'], insertTypesEntry: true })],
   build: {
+    minify: true,
     rollupOptions: {
       external: ['solid'],
       output: {
@@ -16,11 +17,10 @@ export default defineConfig({
     },
     lib: {
       entry: resolve('src', 'index.ts'),
-      name: 'date-picker-solid',
-      formats: ['es', 'cjs'],
+      name: '@camilo/date-picker',
+      formats: ['es', 'cjs', 'iife'],
       fileName: (format) => `index.${format === 'cjs' ? 'cjs' : 'es.js'}`
     },
-    minify: true,
     cssMinify: true
   }
 })

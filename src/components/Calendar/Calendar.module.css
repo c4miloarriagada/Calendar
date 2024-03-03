@@ -7,6 +7,8 @@
     rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
   --border-radius: 50px;
   --light-grey: hsl(0, 0%, 94%);
+  --border-active-end: 0 4px 4px 0;
+  --border-active-begin: 4px 0 0 4px;
 }
 
 /* animations */
@@ -126,11 +128,11 @@
 }
 
 .calendar-t-body__table-data:first-child > button {
-  border-radius: 4px 0 0 4px !important;
+  border-radius: var(--border-active-begin);
 }
 
 .calendar-t-body__table-data:last-child > button {
-  border-radius: 0 4px 4px 0 !important;
+  border-radius: var(--border-active-end);
 }
 
 .calendar-t-body__table-data {
@@ -149,7 +151,7 @@
 
 .calendar-t-body__table-data > button:hover {
   background-color: var(--light-grey);
-  border-radius: 4px !important;
+  border-radius: 4px;
   height: 2rem;
 }
 
@@ -255,9 +257,21 @@
 }
 
 .calendar-t-body__table-data--begin > button {
-  border-radius: 4px 0 0 4px;
+  border-radius: var(--border-active-begin) !important;
+}
+
+.calendar-t-body__table-data--begin > button:hover {
+  border-radius: var(--border-active-begin) !important;
 }
 
 .calendar-t-body__table-data--end > button {
-  border-radius: 0 4px 4px 0;
+  border-radius: var(--border-active-end) !important;
+}
+
+.calendar-t-body__table-data--end > button:hover {
+  border-radius: var(--border-active-end) !important;
+}
+
+.calendar-t-body__table-data--normal > button {
+  border-radius: 4px !important;
 }
