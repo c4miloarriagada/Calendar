@@ -23,8 +23,8 @@ export default defineConfig({
     lib: {
       entry: resolve('src', 'index.ts'),
       name: 'solid-calendar',
-      formats: ['es'],
-      fileName: () => `index.js`
+      formats: ['es', 'cjs'],
+      fileName: (format) => `index.${format === 'cjs' ? 'cjs' : 'es.js'}`
     },
     cssMinify: true
   }

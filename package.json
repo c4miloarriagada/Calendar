@@ -10,7 +10,8 @@
   "homepage": "https://github.com/c4miloarriagada/Calendar.git",
   "exports": {
     ".": {
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     }
   },
   "files": [
