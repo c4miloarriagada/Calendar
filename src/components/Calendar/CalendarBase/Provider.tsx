@@ -24,6 +24,7 @@ import type {
   SingleDate
 } from './interfaces/calendar.interface'
 
+/* @ts-ignore */
 const initialState: Calendar<CalendarType> = {
   today: new Date(),
   actualMonth: { actualMonth: [] },
@@ -71,6 +72,7 @@ export const CalendarProvider = <T extends CalendarType>(
             }
           : never)
 ) => {
+  /* @ts-ignore */
   const [state, setState] = createStore<Calendar<CalendarType>>({
     today: initialState.today,
     actualMonth: initialState.actualMonth,
@@ -175,13 +177,16 @@ export const CalendarProvider = <T extends CalendarType>(
           }))
 
           if (props.type === 'single' || props.type === 'form') {
+            /* @ts-ignore */
             props.setDates({
               date: new Date(year, month, day)
             })
           }
           if (props.type === 'range') {
             const dateKey = key === 'dateBegin' ? 'dateTo' : 'dateFrom'
+            /* @ts-ignore */
             props.setDates({
+              /* @ts-ignore */
               ...props.dates(),
               [dateKey]: new Date(year, month, day)
             })

@@ -1,25 +1,30 @@
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
+import solidPlugin from 'vite-plugin-solid'
 import dts from 'vite-plugin-dts'
 import solid from 'vite-plugin-solid'
 
 export default defineConfig({
-  plugins: [solid(), dts({ include: ['src'], insertTypesEntry: true })],
+  plugins: [
+    solid(),
+    solidPlugin(),
+    dts({ include: ['src'], insertTypesEntry: true })
+  ],
   build: {
-    minify: true,
+    minify: 'esbuild',
     rollupOptions: {
-      external: ['solid'],
+      external: ['solid-js'],
       output: {
         globals: {
-          solid: 'solid'
+          'solid-js': 'solid-js'
         }
       }
     },
     lib: {
       entry: resolve('src', 'index.ts'),
-      name: '@camilo/date-picker',
-      formats: ['es', 'cjs', 'iife'],
-      fileName: (format) => `index.${format === 'cjs' ? 'cjs' : 'es.js'}`
+      name: 'solid-calendar',
+      formats: ['es'],
+      fileName: () => `index.js`
     },
     cssMinify: true
   }

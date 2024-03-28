@@ -13,7 +13,7 @@ function App() {
         'align-items': 'center'
       }}
     >
-      <CalendarWrapper dates={date} setDates={setDate} type='form' />
+      <CalendarWrapper dates={date} setDates={setDate} type='range' />
     </main>
   )
 }
