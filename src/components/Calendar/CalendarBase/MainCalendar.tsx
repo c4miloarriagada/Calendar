@@ -3,7 +3,7 @@ import { useCalendarContext } from './Provider'
 import { CalendarRange } from '../CalendarRange/CalendarRange'
 import { CalendarBase } from './CalendarBase'
 
-export const Calendar = () => {
+export const MainCalendar = () => {
   const [state, { setCalendarMonth }] = useCalendarContext()
 
   createEffect(() => {

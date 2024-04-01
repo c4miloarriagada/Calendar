@@ -1,5 +1,4 @@
 import type { Accessor, Setter } from 'solid-js'
-import { CalendarWrapper } from '../..'
 
 export type Calendar<T extends CalendarType> = {
   today?: Date
@@ -15,7 +14,21 @@ export type Calendar<T extends CalendarType> = {
   type: T
 } & CalendarProps<T>
 
-type CalendarProps<T extends CalendarType> = T extends 'single'
+export type TInitialState = {
+  today?: Date
+  actualMonth?: { actualMonth: Date[] }
+  daysOfWeek?: DaysOfWeek
+  prevMonth?: { prevMonth: Date[] }
+  nextMonth?: { nextMonth: Date[] }
+  parsedActualMonth?: { parsedActualMonth: Day[][] }
+  yearHandler?: { yearHandler: number }
+  activeDate?: { activeDate: ActiveDate }
+  rangeNextDays?: Day[][]
+  rangeNextMonth?: Date
+  type: CalendarType
+}
+
+export type CalendarProps<T extends CalendarType> = T extends 'single'
   ? {
       date: Accessor<SingleDate>
       setDate: Setter<SingleDate>
@@ -83,9 +96,9 @@ export interface TypeHandler {
 
 export type CalendarType = 'single' | 'range' | 'form'
 
-export interface RangeMode extends CalendarWrapper {
-  dates: Accessor<Dates>
-  setDates: Setter<Dates>
+export type TCalendar = {
+  values: Accessor<Dates>
+  setValues: Setter<Dates>
 }
 
 export type SingleDate =

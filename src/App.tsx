@@ -1,8 +1,9 @@
 import { createSignal } from 'solid-js'
-import { CalendarWrapper } from '.'
+import { Calendar } from '.'
 
 function App() {
   const [date, setDate] = createSignal({})
+
   return (
     <main
       style={{
@@ -13,7 +14,7 @@ function App() {
         'align-items': 'center'
       }}
     >
-      <CalendarWrapper dates={date} setDates={setDate} type='range' />
+      <Calendar values={date} setValues={setDate} type='form' />
     </main>
   )
 }

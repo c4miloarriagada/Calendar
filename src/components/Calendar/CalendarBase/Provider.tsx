@@ -1,11 +1,4 @@
-import {
-  createContext,
-  onMount,
-  useContext,
-  type ParentProps,
-  Accessor,
-  Setter
-} from 'solid-js'
+import { createContext, onMount, useContext, type ParentProps } from 'solid-js'
 import { createStore } from 'solid-js/store'
 import { daysOfTheMonthParse } from '../../../helpers/daysOfTheMonthParse'
 import { dayParser } from '../../../helpers/dayParser'
@@ -20,12 +13,10 @@ import type {
   TypeHandler,
   CalendarType,
   ActiveDate,
-  Dates,
-  SingleDate
+  TInitialState
 } from './interfaces/calendar.interface'
 
-/* @ts-ignore */
-const initialState: Calendar<CalendarType> = {
+const initialState: TInitialState = {
   today: new Date(),
   actualMonth: { actualMonth: [] },
   prevMonth: { prevMonth: [] },
@@ -44,7 +35,7 @@ const initialState: Calendar<CalendarType> = {
   type: 'single'
 }
 
-const CalendarContext = createContext<[Calendar<CalendarType>, Actions]>([
+const CalendarContext = createContext<[TInitialState, Actions]>([
   initialState,
   {
     getDaysOfMonth: () => {},
@@ -54,26 +45,9 @@ const CalendarContext = createContext<[Calendar<CalendarType>, Actions]>([
 ])
 
 export const CalendarProvider = <T extends CalendarType>(
-  props: ParentProps<Calendar<T>> &
-    (T extends 'range'
-      ? {
-          dates: Accessor<Dates>
-          setDates: Setter<Dates>
-        }
-      : T extends 'form'
-        ? {
-            date: Accessor<SingleDate>
-            setDate: Setter<SingleDate>
-          }
-        : T extends 'single'
-          ? {
-              date: Accessor<SingleDate>
-              setDate: Setter<SingleDate>
-            }
-          : never)
+  props: ParentProps<Calendar<T>>
 ) => {
-  /* @ts-ignore */
-  const [state, setState] = createStore<Calendar<CalendarType>>({
+  const [state, setState] = createStore<TInitialState>({
     today: initialState.today,
     actualMonth: initialState.actualMonth,
     daysOfWeek: initialState.daysOfWeek,
@@ -83,7 +57,7 @@ export const CalendarProvider = <T extends CalendarType>(
     type: props.type
   })
 
-  const context: [Calendar<CalendarType>, Actions] = [
+  const context: [TInitialState | Calendar<T>, Actions] = [
     state,
     {
       getDaysOfMonth(
@@ -177,19 +151,21 @@ export const CalendarProvider = <T extends CalendarType>(
           }))
 
           if (props.type === 'single' || props.type === 'form') {
-            /* @ts-ignore */
-            props.setDates({
-              date: new Date(year, month, day)
-            })
+            const propsWithSetDate = props as ParentProps<Calendar<'form'>>
+            propsWithSetDate.setDate &&
+              propsWithSetDate.setDate({
+                date: new Date(year, month, day)
+              })
           }
           if (props.type === 'range') {
             const dateKey = key === 'dateBegin' ? 'dateTo' : 'dateFrom'
-            /* @ts-ignore */
-            props.setDates({
-              /* @ts-ignore */
-              ...props.dates(),
-              [dateKey]: new Date(year, month, day)
-            })
+            const propsWithSetDates = props as ParentProps<Calendar<'range'>>
+            propsWithSetDates.setDates &&
+              propsWithSetDates.dates() &&
+              propsWithSetDates.setDates({
+                ...propsWithSetDates.dates(),
+                [dateKey]: new Date(year, month, day)
+              })
           }
         }
 

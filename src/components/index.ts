@@ -1,2 +1,2 @@
-export { Calendar } from './Calendar'
-export { CalendarWrapper } from './Calendar/CalendarWrapper'
+export { Calendar } from './Calendar/Calendar'
+export type { TCalendar } from './Calendar/CalendarBase/interfaces/calendar.interface'
