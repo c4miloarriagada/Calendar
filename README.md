@@ -7,7 +7,7 @@
 1. How to use?
 
 ```
-import { CalendarWrapper } from 'solid-calendar'
+import { Calendar } from 'solid-calendar'
 ```
 
 2. Create a signal with empty object
@@ -19,11 +19,11 @@ import { CalendarWrapper } from 'solid-calendar'
 3. EZ
 
 ```
-<CalendarWrapper type="form" setDates={setDate} dates={date} />
+<Calendar type="form" setValues={setDate} values={date} />
 ```
 
 ```
-
+types = "form" | "single" | "range"
 ```
 
 ![image](https://github.com/c4miloarriagada/Calendar/assets/95378920/dd3d7c8d-7664-43f4-8d95-d973f1320e22)
