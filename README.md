@@ -24,7 +24,7 @@ const [date, setDate] = createSignal<SingleDate>({
     date: {}
   })
 
-<Calendar type="form" setDate={setDate} date={date} />
+<Calendar type="single" setDate={setDate} date={date} />
 ```
 
 ![image](https://github.com/c4miloarriagada/Calendar/assets/95378920/dd3d7c8d-7664-43f4-8d95-d973f1320e22)
