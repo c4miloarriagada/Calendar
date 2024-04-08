@@ -14,7 +14,7 @@ types = "form" | "single" | "range"
 import { Calendar } from 'solid-calendar'
 ```
 
-2. Create a signal with empty object
+2. Create a signal with the shape of your type
 
 ```
 import type { SingleDate } from 'solid-calendar'
