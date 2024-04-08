@@ -4,26 +4,42 @@
 
 ### ...work in progress
 
+```
+types = "form" | "single" | "range"
+```
+
 1. How to use?
 
 ```
 import { Calendar } from 'solid-calendar'
 ```
 
-2. Create a signal with empty object
+2. Create a signal with the shape of your type
 
 ```
- const [date, setDate] = createSignal({})
-```
+import type { SingleDate } from 'solid-calendar'
 
-3. EZ
 
-```
+const [date, setDate] = createSignal<SingleDate>({
+    date: {}
+  })
+
 <Calendar type="form" setValues={setDate} values={date} />
 ```
 
+OR
+
 ```
-types = "form" | "single" | "range"
+import type { RangeDate } from 'solid-calendar'
+
+
+const [date, setDate] = createSignal<RangeDate>({
+    dateTo: {},
+    dateFrom: {}
+  })
+
+
+<Calendar date={date} setDate={setDate} type='range' />
 ```
 
 ![image](https://github.com/c4miloarriagada/Calendar/assets/95378920/dd3d7c8d-7664-43f4-8d95-d973f1320e22)

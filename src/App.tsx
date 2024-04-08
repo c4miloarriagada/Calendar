@@ -1,10 +1,11 @@
 import { createSignal } from 'solid-js'
 import { Calendar } from '.'
-import type { SingleDate } from './components/Calendar/CalendarBase/interfaces/calendar.interface'
+import type { RangeDate } from './components/Calendar/CalendarBase/interfaces/calendar.interface'
 
 function App() {
-  const [date, setDate] = createSignal<SingleDate>({
-    date: {}
+  const [date, setDate] = createSignal<RangeDate>({
+    dateTo: {},
+    dateFrom: {}
   })
 
   return (
@@ -17,7 +18,7 @@ function App() {
         'align-items': 'center'
       }}
     >
-      <Calendar date={date} setDate={setDate} type='form' />
+      <Calendar date={date} setDate={setDate} type='range' />
     </main>
   )
 }
