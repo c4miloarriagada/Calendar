@@ -1,2 +1,6 @@
 export { Calendar } from './Calendar/Calendar'
-export type { TCalendar } from './Calendar/CalendarBase/interfaces/calendar.interface'
+export type {
+  TCalendar,
+  SingleDate,
+  RangeDate
+} from './Calendar/CalendarBase/interfaces/calendar.interface'

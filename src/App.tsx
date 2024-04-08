@@ -1,8 +1,11 @@
 import { createSignal } from 'solid-js'
 import { Calendar } from '.'
+import type { SingleDate } from './components/Calendar/CalendarBase/interfaces/calendar.interface'
 
 function App() {
-  const [date, setDate] = createSignal({})
+  const [date, setDate] = createSignal<SingleDate>({
+    date: {}
+  })
 
   return (
     <main
@@ -14,7 +17,7 @@ function App() {
         'align-items': 'center'
       }}
     >
-      <Calendar values={date} setValues={setDate} type='form' />
+      <Calendar date={date} setDate={setDate} type='form' />
     </main>
   )
 }

@@ -11,8 +11,9 @@ export type Calendar<T extends CalendarType> = {
   activeDate?: { activeDate: ActiveDate }
   rangeNextDays?: Day[][]
   rangeNextMonth?: Date
+  // format: Format
   type: T
-} & CalendarProps<T>
+} & TCalendar<T>
 
 export type TInitialState = {
   today?: Date
@@ -28,21 +29,20 @@ export type TInitialState = {
   type: CalendarType
 }
 
-export type CalendarProps<T extends CalendarType> = T extends 'single'
-  ? {
-      date: Accessor<SingleDate>
-      setDate: Setter<SingleDate>
-    }
+export type CalendarAccesor<T extends CalendarType> = T extends 'single'
+  ? Accessor<SingleDate>
   : T extends 'range'
-    ? {
-        dates: Accessor<Dates>
-        setDates: Setter<Dates>
-      }
+    ? Accessor<RangeDate>
     : T extends 'form'
-      ? {
-          date: Accessor<SingleDate>
-          setDate: Setter<SingleDate>
-        }
+      ? Accessor<SingleDate>
+      : never
+
+export type CalendarSetter<T extends CalendarType> = T extends 'single'
+  ? Setter<SingleDate>
+  : T extends 'range'
+    ? Setter<RangeDate>
+    : T extends 'form'
+      ? Setter<SingleDate>
       : never
 
 export type Months = {
@@ -96,20 +96,16 @@ export interface TypeHandler {
 
 export type CalendarType = 'single' | 'range' | 'form'
 
-export type TCalendar = {
-  values: Accessor<Dates>
-  setValues: Setter<Dates>
+export type TCalendar<T extends CalendarType> = {
+  date: CalendarAccesor<T>
+  setDate: CalendarSetter<T>
 }
 
-export type SingleDate =
-  | {
-      date: Date
-    }
-  | {}
+export type SingleDate = {
+  date: Date | {}
+}
 
-export type Dates =
-  | {
-      dateTo: Date
-      dateFrom: Date
-    }
-  | {}
+export type RangeDate = {
+  dateTo: Date | {}
+  dateFrom: Date | {}
+}

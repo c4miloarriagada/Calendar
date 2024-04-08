@@ -4,37 +4,19 @@ import type {
   CalendarType,
   TCalendar
 } from './CalendarBase/interfaces/calendar.interface'
-import { Match, Switch } from 'solid-js'
 
 export type Calendar<T extends CalendarType> = {
   type: CalendarType
-} & TCalendar
+} & TCalendar<T>
 
 export const Calendar = <T extends CalendarType>({
   type,
-  values,
-  setValues
+  date,
+  setDate
 }: Calendar<T>) => {
   return (
-    <Switch fallback={<p>Error</p>}>
-      <Match when={type === 'form' || type === 'single'}>
-        <CalendarProvider<'form'>
-          date={values}
-          setDate={setValues}
-          type={'form'}
-        >
-          <MainCalendar />
-        </CalendarProvider>
-      </Match>
-      <Match when={type === 'range'}>
-        <CalendarProvider<'range'>
-          dates={values}
-          setDates={setValues}
-          type={'range'}
-        >
-          <MainCalendar />
-        </CalendarProvider>
-      </Match>
-    </Switch>
+    <CalendarProvider date={date} setDate={setDate} type={type}>
+      <MainCalendar />
+    </CalendarProvider>
   )
 }

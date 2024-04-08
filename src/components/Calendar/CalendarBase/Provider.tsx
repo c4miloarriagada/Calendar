@@ -160,10 +160,10 @@ export const CalendarProvider = <T extends CalendarType>(
           if (props.type === 'range') {
             const dateKey = key === 'dateBegin' ? 'dateTo' : 'dateFrom'
             const propsWithSetDates = props as ParentProps<Calendar<'range'>>
-            propsWithSetDates.setDates &&
-              propsWithSetDates.dates() &&
-              propsWithSetDates.setDates({
-                ...propsWithSetDates.dates(),
+            propsWithSetDates.setDate &&
+              propsWithSetDates.date() &&
+              propsWithSetDates.setDate({
+                ...propsWithSetDates.date(),
                 [dateKey]: new Date(year, month, day)
               })
           }
