@@ -34,9 +34,9 @@ const [date, setDate] = createSignal<SingleDate>({
 
 <Calendar type="form" setValues={setDate} values={date} />
 ```
+![image](https://github.com/c4miloarriagada/Calendar/assets/95378920/4d871f56-0bd5-49f3-bf00-7f65fc4795b7)
+![image](https://github.com/c4miloarriagada/Calendar/assets/95378920/cc0692ad-af9f-431e-b2b9-13c62f6f105c)
 
-![image](https://github.com/c4miloarriagada/Calendar/assets/95378920/dd3d7c8d-7664-43f4-8d95-d973f1320e22)
-![image](https://github.com/c4miloarriagada/Calendar/assets/95378920/90440fe6-8eca-4536-b221-51dc5509ca1b)
 
 
 OR
@@ -54,6 +54,6 @@ const [date, setDate] = createSignal<RangeDate>({
 <Calendar date={date} setDate={setDate} type='range' />
 ```
 
-![image](https://github.com/c4miloarriagada/Calendar/assets/95378920/d2050087-9d25-46c5-8420-4b39ef88a666)
-![image](https://github.com/c4miloarriagada/Calendar/assets/95378920/3da719ab-f79f-47b0-a90c-706b970e056c)
+![image](https://github.com/c4miloarriagada/Calendar/assets/95378920/c5d47d07-995b-4cf9-9925-c4d981c1e156)
+![image](https://github.com/c4miloarriagada/Calendar/assets/95378920/c0675322-ed8e-45d7-afa2-1dbbbbd3e48b)
 
