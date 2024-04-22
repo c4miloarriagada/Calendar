@@ -19,6 +19,17 @@ function App() {
       }}
     >
       <Calendar date={date} setDate={setDate} type='range' />
+
+      <button
+        class=''
+        onClick={() => {
+          const body = document.querySelector('body')
+
+          body?.classList.add('dark-mode')
+        }}
+      >
+        DARKMODE
+      </button>
     </main>
   )
 }

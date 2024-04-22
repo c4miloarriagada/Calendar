@@ -8,7 +8,7 @@ export const CalendarBase = () => {
   const [state, { setActiveDate }] = useCalendarContext()
 
   return (
-    <div role='application' class={style['calendar-container']}>
+    <div role='application' class={`${style['calendar-container']}`}>
       <Handler actualMonth={state?.actualMonth?.actualMonth!} />
       <div class={style['calendar-container__table-container']}>
         <table class={style['calendar-container__table']} role='grid'>
