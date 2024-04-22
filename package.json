@@ -4,13 +4,13 @@
   "version": "0.0.12",
   "type": "module",
   "main": "./dist/index.cjs",
-  "module": "./dist/index.es.js",
+  "module": "./dist/index.js",
   "types": "dist/index.d.ts",
   "repository": "https://github.com/c4miloarriagada/Calendar.git",
   "homepage": "https://github.com/c4miloarriagada/Calendar.git",
   "exports": {
     ".": {
-      "import": "./dist/index.es.js",
+      "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     }
   },
