@@ -15,7 +15,6 @@ export const Calendar = <T extends CalendarType>({
   setDate,
   format
 }: Calendar<T>) => {
-  console.log(format)
   return (
     <CalendarProvider date={date} format={format} setDate={setDate} type={type}>
       <MainCalendar />
