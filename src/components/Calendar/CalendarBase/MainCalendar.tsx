@@ -11,13 +11,13 @@ export const MainCalendar = () => {
   })
 
   return (
-    <>
+    <div class='calendar-wrapper'>
       <Show when={state.type !== 'range'}>
         <CalendarBase />
       </Show>
       <Show when={state.type === 'range'}>
         <CalendarRange />
       </Show>
-    </>
+    </div>
   )
 }

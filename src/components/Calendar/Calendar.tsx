@@ -12,10 +12,11 @@ export type Calendar<T extends CalendarType> = {
 export const Calendar = <T extends CalendarType>({
   type,
   date,
-  setDate
+  setDate,
+  format
 }: Calendar<T>) => {
   return (
-    <CalendarProvider date={date} setDate={setDate} type={type}>
+    <CalendarProvider date={date} format={format} setDate={setDate} type={type}>
       <MainCalendar />
     </CalendarProvider>
   )

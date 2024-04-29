@@ -11,8 +11,8 @@ export type Calendar<T extends CalendarType> = {
   activeDate?: { activeDate: ActiveDate }
   rangeNextDays?: Day[][]
   rangeNextMonth?: Date
-  // format: Format
   type: T
+  format?: Format
 } & TCalendar<T>
 
 export type TInitialState = {
@@ -27,6 +27,7 @@ export type TInitialState = {
   rangeNextDays?: Day[][]
   rangeNextMonth?: Date
   type: CalendarType
+  format?: Format
 }
 
 export type CalendarAccesor<T extends CalendarType> = T extends 'single'
@@ -94,18 +95,49 @@ export interface TypeHandler {
   range: () => void
 }
 
+type Format = {
+  locale: string
+  options?: DateTimeFormatOptions
+}
 export type CalendarType = 'single' | 'range' | 'form'
 
 export type TCalendar<T extends CalendarType> = {
   date: CalendarAccesor<T>
   setDate: CalendarSetter<T>
+  format?: Format
 }
 
 export type SingleDate = {
   date: Date | {}
+  formatedDate?: string
 }
 
 export type RangeDate = {
   dateTo: Date | {}
   dateFrom: Date | {}
+  formated?: { dateTo?: string; dateFrom?: string }
+}
+
+interface DateTimeFormatOptions {
+  localeMatcher?: 'lookup' | 'best fit'
+  timeZone?: string
+  hour12?: boolean
+  formatMatcher?: 'basic' | 'best fit'
+  weekday?: 'long' | 'short' | 'narrow'
+  era?: 'long' | 'short' | 'narrow'
+  year?: 'numeric' | '2-digit'
+  month?: 'numeric' | '2-digit' | 'long' | 'short' | 'narrow'
+  day?: 'numeric' | '2-digit'
+  hour?: 'numeric' | '2-digit'
+  minute?: 'numeric' | '2-digit'
+  second?: 'numeric' | '2-digit'
+  timeZoneName?: 'long' | 'short'
+  hourCycle?: 'h11' | 'h12' | 'h23' | 'h24'
+  fractionalSecondDigits?: 0 | 1 | 2 | 3
+  dayPeriod?: 'narrow' | 'short' | 'long'
+  numberingSystem?: string
+  calendar?: string
+  caseFirst?: 'upper' | 'lower' | 'false'
+  dateStyle?: 'full' | 'long' | 'medium' | 'short'
+  timeStyle?: 'full' | 'long' | 'medium' | 'short'
 }

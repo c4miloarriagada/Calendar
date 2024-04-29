@@ -5,6 +5,7 @@ import type {
   Day
 } from './interfaces/calendar.interface'
 import style from './../Calendar.module.css'
+import { setNewDate } from '../../../helpers/setNewDate'
 
 interface Props extends Day {
   setActiveDate: (day: number, month: number, year: number) => void
@@ -15,7 +16,7 @@ interface Props extends Day {
 }
 
 export const Cell = (props: Props) => {
-  const currentDate = new Date(props.year, props.month, props.day)
+  const currentDate = setNewDate(props.year, props.month, props.day)
   const handleClick = () => {
     const { setActiveDate } = props
     setActiveDate(props.day, props.month, props.year)
@@ -24,7 +25,7 @@ export const Cell = (props: Props) => {
   const validator = (date: ActiveDay | null) => {
     if (
       currentDate.getTime() ===
-      new Date(date?.year!, date?.month!, date?.day!).getTime()
+      setNewDate(date?.year!, date?.month!, date?.day!).getTime()
     ) {
       return true
     }
@@ -42,9 +43,13 @@ export const Cell = (props: Props) => {
 
   const rangeValidator = () => {
     const { dateBegin, dateEnd } = props
-    const begin = new Date(dateBegin?.year!, dateBegin?.month!, dateBegin?.day)
-    const end = new Date(dateEnd?.year!, dateEnd?.month!, dateEnd?.day)
-    const actualDate = new Date(props.year, props.month, props.day)
+    const begin = setNewDate(
+      dateBegin?.year!,
+      dateBegin?.month!,
+      dateBegin?.day!
+    )
+    const end = setNewDate(dateEnd?.year!, dateEnd?.month!, dateEnd?.day!)
+    const actualDate = setNewDate(props.year, props.month, props.day)
 
     if (
       actualDate.getTime() >= begin.getTime() &&
