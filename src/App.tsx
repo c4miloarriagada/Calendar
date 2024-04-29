@@ -1,11 +1,15 @@
-import { createSignal } from 'solid-js'
-import { Calendar, SingleDate } from '.'
+import { createEffect, createSignal } from 'solid-js'
+import { Calendar, RangeDate } from '.'
 
 function App() {
-  const [date, setDate] = createSignal<SingleDate>({
-    date: {}
+  const [date, setDate] = createSignal<RangeDate>({
+    dateFrom: {},
+    dateTo: {}
   })
 
+  createEffect(() => {
+    console.log(date())
+  })
   return (
     <main
       style={{
@@ -16,7 +20,19 @@ function App() {
         'align-items': 'center'
       }}
     >
-      <Calendar<'single'> date={date} setDate={setDate} type='single' />
+      <Calendar<'range'>
+        format={{
+          locale: 'en-GB',
+          options: {
+            dateStyle: 'full',
+            timeStyle: 'long',
+            timeZone: 'Australia/Sydney'
+          }
+        }}
+        date={date}
+        setDate={setDate}
+        type='range'
+      />
     </main>
   )
 }

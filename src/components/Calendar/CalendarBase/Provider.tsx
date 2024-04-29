@@ -15,6 +15,7 @@ import type {
   ActiveDate,
   TInitialState
 } from './interfaces/calendar.interface'
+import { setNewDate } from '../../../helpers/setNewDate'
 
 const initialState: TInitialState = {
   today: new Date(),
@@ -54,7 +55,8 @@ export const CalendarProvider = <T extends CalendarType>(
     nextMonth: initialState.nextMonth,
     prevMonth: initialState.prevMonth,
     yearHandler: initialState.yearHandler,
-    type: props.type
+    type: props.type,
+    format: props.format
   })
 
   const context: [TInitialState | Calendar<T>, Actions] = [
@@ -66,9 +68,9 @@ export const CalendarProvider = <T extends CalendarType>(
       ): void {
         const [monthValidated, prevYear] = datePrevValidator(month!, year!)
         const [monthNextValidated, nextYear] = dateNexValidator(month!, year!)
-        const actualMonth = new Date(year!, month!, 1)
-        const nextMonth = new Date(nextYear, monthNextValidated, 1)
-        const prevMonth = new Date(prevYear!, monthValidated, 1)
+        const actualMonth = setNewDate(year!, month!, 1)
+        const nextMonth = setNewDate(nextYear, monthNextValidated, 1)
+        const prevMonth = setNewDate(prevYear!, monthValidated, 1)
 
         setState('yearHandler', () => ({
           yearHandler: state.yearHandler!.yearHandler + 1
@@ -111,11 +113,11 @@ export const CalendarProvider = <T extends CalendarType>(
             const nextMonth = dayParser({
               actualMonth: state.nextMonth?.nextMonth!,
               nextMonth: daysOfTheMonthParse(
-                new Date(nextYear, monthNextValidated, 1),
+                setNewDate(nextYear, monthNextValidated, 1),
                 monthNextValidated
               ),
               prevMonth: daysOfTheMonthParse(
-                new Date(prevYear, monthValidated, 1),
+                setNewDate(prevYear, monthValidated, 1),
                 monthValidated
               ),
               daysOfWeek: state.daysOfWeek!,
@@ -136,6 +138,7 @@ export const CalendarProvider = <T extends CalendarType>(
         typeHandler[type]()
       },
       setActiveDate(day: number, month: number, year: number): void {
+        const newDate = setNewDate(year, month, day)
         const dateHandler = (key: keyof ActiveDate | undefined) => {
           if (!key) {
             setState('activeDate', () => ({
@@ -154,17 +157,33 @@ export const CalendarProvider = <T extends CalendarType>(
             const propsWithSetDate = props as ParentProps<Calendar<'form'>>
             propsWithSetDate.setDate &&
               propsWithSetDate.setDate({
-                date: new Date(year, month, day)
+                date: newDate,
+                ...(props.format && {
+                  ['formatedDate']: new Intl.DateTimeFormat(
+                    props.format.locale,
+                    props.format.options
+                  ).format(newDate)
+                })
               })
           }
           if (props.type === 'range') {
             const dateKey = key === 'dateBegin' ? 'dateTo' : 'dateFrom'
+
             const propsWithSetDates = props as ParentProps<Calendar<'range'>>
             propsWithSetDates.setDate &&
               propsWithSetDates.date() &&
               propsWithSetDates.setDate({
                 ...propsWithSetDates.date(),
-                [dateKey]: new Date(year, month, day)
+                [dateKey]: newDate,
+                ...(props.format && {
+                  ['formated']: {
+                    ...propsWithSetDates.date()['formated'],
+                    [dateKey]: new Intl.DateTimeFormat(
+                      props.format.locale,
+                      props.format.options
+                    ).format(newDate)
+                  }
+                })
               })
           }
         }
@@ -174,19 +193,19 @@ export const CalendarProvider = <T extends CalendarType>(
           month: number,
           year: number
         ): keyof ActiveDate | undefined => {
-          const endDate = new Date(
+          const endDate = setNewDate(
             state.activeDate?.activeDate.dateEnd?.year!,
             state.activeDate?.activeDate.dateEnd?.month!,
             state.activeDate?.activeDate.dateEnd?.day!
           )
 
-          const beginDate = new Date(
+          const beginDate = setNewDate(
             state.activeDate?.activeDate.dateBegin?.year!,
             state.activeDate?.activeDate.dateBegin?.month!,
             state.activeDate?.activeDate.dateBegin?.day!
           )
 
-          const dateToCompare = new Date(year, month, day)
+          const dateToCompare = setNewDate(year, month, day)
 
           if (
             dateToCompare.getTime() === endDate.getTime() ||
