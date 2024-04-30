@@ -1,4 +1,8 @@
+import { createSignal } from 'solid-js'
+import { Calendar, SingleDate } from '.'
+
 function App() {
+  const [date, setDate] = createSignal<SingleDate>({ date: {} })
   return (
     <main
       style={{
@@ -8,7 +12,9 @@ function App() {
         'justify-content': 'center',
         'align-items': 'center'
       }}
-    ></main>
+    >
+      <Calendar<'single'> type='single' date={date} setDate={setDate} />
+    </main>
   )
 }
 

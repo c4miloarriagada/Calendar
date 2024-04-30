@@ -1,11 +1,11 @@
 import { Match, Switch } from 'solid-js'
+import { setNewDate } from '../../../helpers/setNewDate'
 import type {
   ActiveDay,
   CalendarType,
   Day
 } from './interfaces/calendar.interface'
 import style from './../Calendar.module.css'
-import { setNewDate } from '../../../helpers/setNewDate'
 
 interface Props extends Day {
   setActiveDate: (day: number, month: number, year: number) => void

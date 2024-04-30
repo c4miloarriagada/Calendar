@@ -162,6 +162,7 @@ body:global(.dark-mode) {
 
 .calendar-t-body__table-data--today {
   height: 2rem !important;
+  border-radius: 4px !important;
   background-color: var(--_calendar-light-grey) !important;
 }
 
