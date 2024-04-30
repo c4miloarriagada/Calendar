@@ -189,12 +189,12 @@ body:global(.dark-mode) {
 }
 .calendar-t-body__table-data > button[aria-disabled='true']:hover {
   color: var(--_calendar-text-muted);
-  height: 100%;
+  height: 2rem;
   width: 100%;
   background-color: transparent;
 }
 
-.calendar-t-body__table-data--deactive > button[aria-disabled='true']:hover {
+.calendar-t-body__table-data--deactivate > button[aria-disabled='true']:hover {
   height: 2rem;
   width: 100%;
   background-color: transparent;
@@ -280,7 +280,7 @@ body:global(.dark-mode) {
   border: none;
 }
 
-.calendar-t-body__table-data--active.calendar-t-body__table-data--deactive
+.calendar-t-body__table-data--active.calendar-t-body__table-data--deactivate
   > button {
   background-color: var(--_calendar-lightest-grey) !important;
   border-radius: 4px;
