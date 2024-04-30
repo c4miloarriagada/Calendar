@@ -65,7 +65,7 @@ const [date, setDate] = createSignal<SingleDate>({
 ![image](https://github.com/c4miloarriagada/Calendar/assets/95378920/20cabf26-1018-44c1-9817-ff5956696e27)
 
 \
-![image](https://github.com/c4miloarriagada/Calendar/assets/95378920/e917e9b3-2834-4ed7-9922-dbee8accbd31)
+![image](https://github.com/c4miloarriagada/Calendar/assets/95378920/c1441a8a-d7e3-456e-b044-dd42978970a4)
 
 
 OR
