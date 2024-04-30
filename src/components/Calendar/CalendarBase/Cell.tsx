@@ -111,7 +111,7 @@ export const Cell = (props: Props) => {
           class={[
             style['calendar-t-body__table-data'],
             !props.activeMonth
-              ? style['calendar-t-body__table-data--active']
+              ? style['calendar-t-body__table-data--deactive']
               : '',
             dateEndValidator()
               ? style['calendar-t-body__table-data--active']
